@@ -1,52 +1,52 @@
-import { ArrowLeft } from 'lucide-react'
 import { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import CatalogDevelopmentState from '../components/catalog/CatalogDevelopmentState'
+import CatalogFooter from '../components/catalog/CatalogFooter'
+import CatalogHeader from '../components/catalog/CatalogHeader'
+import CatalogHero from '../components/catalog/CatalogHero'
+import CatalogIndex from '../components/catalog/CatalogIndex'
+import CatalogSectionGroup from '../components/catalog/CatalogSectionGroup'
+import { homeTheme } from '../data/themes'
+import { getCatalogBySlug, getCatalogSections, isCatalogAvailable } from '../utils/catalogs'
 import { getSegmentBySlug } from '../utils/segments'
 import { applyThemeToDocument, getThemeById } from '../utils/theme'
 import styles from './CatalogPage.module.css'
 
 function CatalogPage() {
   const { slug } = useParams()
-  const currentSegment = getSegmentBySlug(slug)
-  const theme = currentSegment ? getThemeById(currentSegment.themeId) : getThemeById('home')
+  const segment = getSegmentBySlug(slug)
+  const catalog = getCatalogBySlug(slug)
+  const sectionGroups = getCatalogSections(slug)
+  const theme = segment ? getThemeById(segment.themeId) : homeTheme
+  const available = isCatalogAvailable(slug)
 
   useEffect(() => {
     applyThemeToDocument(theme)
   }, [theme])
 
-  if (!currentSegment) {
+  if (!segment) {
     return (
-      <section className={styles.page}>
-        <div className={styles.card}>
-          <p className={styles.eyebrow}>Catálogo</p>
-          <h1 className={styles.title}>Catálogo não encontrado</h1>
-          <p className={styles.subtitle}>O slug informado não corresponde a nenhum segmento oficial.</p>
-          <Link className={styles.backLink} to="/">
-            <ArrowLeft size={18} />
-            Voltar para a Home
-          </Link>
-        </div>
-      </section>
+      <div className={styles.page}>
+        <CatalogHeader />
+        <main className={styles.main}>
+          <CatalogDevelopmentState variant="not-found" />
+        </main>
+        <CatalogFooter />
+      </div>
     )
   }
 
   return (
-    <section className={styles.page}>
-      <div className={styles.card}>
-        <p className={styles.eyebrow}>Catálogo</p>
-        <h1 className={styles.title}>{currentSegment.title}</h1>
-        <p className={styles.subtitle}>{currentSegment.subtitle}</p>
-        <p className={styles.meta}>Status: <strong>{currentSegment.status}</strong></p>
-        <p className={styles.meta}>{currentSegment.description}</p>
-        <p className={styles.meta}>Tema vinculado: <strong>{theme.name}</strong></p>
-        <p className={styles.meta}>Catálogo em desenvolvimento</p>
-
-        <Link className={styles.backLink} to="/">
-          <ArrowLeft size={18} />
-          Voltar para a Home
-        </Link>
-      </div>
-    </section>
+    <div className={styles.page}>
+      <CatalogHeader segment={segment} />
+      <main className={styles.main}>
+        <CatalogHero catalog={catalog} segment={segment} />
+        <CatalogIndex groups={sectionGroups} />
+        <CatalogSectionGroup groups={sectionGroups} />
+        {!available ? <CatalogDevelopmentState segment={segment} /> : null}
+      </main>
+      <CatalogFooter />
+    </div>
   )
 }
 

@@ -1,0 +1,81 @@
+.wrapper {
+  display: grid;
+  gap: 18px;
+}
+
+.group {
+  display: grid;
+  gap: 18px;
+  padding: clamp(24px, 4vw, 36px);
+  border: 1px solid var(--theme-active-border);
+  border-radius: var(--radius-2xl);
+  background:
+    radial-gradient(circle at 92% 16%, color-mix(in srgb, var(--theme-active-glow) 58%, transparent), transparent 30%),
+    color-mix(in srgb, var(--theme-active-surface) 86%, transparent);
+}
+
+.groupHeader {
+  display: grid;
+  gap: 8px;
+}
+
+.eyebrow,
+.groupHeader h2,
+.groupHeader p,
+.sectionCard h3,
+.sectionCard p {
+  margin: 0;
+}
+
+.eyebrow {
+  color: var(--theme-active-accent);
+  font-size: 0.74rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.groupHeader h2 {
+  color: var(--theme-active-text);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.groupHeader p,
+.sectionCard p,
+.sectionCard small {
+  color: var(--theme-active-muted);
+  line-height: 1.65;
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sectionCard {
+  display: grid;
+  gap: 10px;
+  min-height: 190px;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--theme-active-primary) 14%, var(--theme-active-border));
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.sectionCard span {
+  width: 42px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--theme-active-accent);
+}
+
+.sectionCard h3 {
+  color: var(--theme-active-text);
+}
+
+@media (max-width: 900px) {
+  .sections {
+    grid-template-columns: 1fr;
+  }
+}
