@@ -1,12 +1,21 @@
 export type ThemeMode = 'light' | 'dark'
 
-export type ThemeTokens = {
+export type ThemeId = string
+
+export type ThemeDefinition = {
+  id: ThemeId
+  name: string
+  primary: string
+  secondary: string
+  accent: string
   background: string
   surface: string
   surfaceAlt: string
   text: string
-  heading: string
   muted: string
+  gradient: string
+  glow: string
+  particle: string
+  shadow: string
   border: string
-  accent: string
 }

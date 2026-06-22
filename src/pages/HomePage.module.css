@@ -1,27 +1,27 @@
 .page {
   display: grid;
   gap: 32px;
-  max-width: 1120px;
+  max-width: var(--container-lg);
   margin: 0 auto;
 }
 
 .hero {
   display: grid;
   gap: 16px;
-  padding: clamp(28px, 5vw, 52px);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xxl);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(249, 246, 241, 0.92));
-  box-shadow: var(--shadow-md);
+  padding: clamp(28px, 5vw, 56px);
+  border: 1px solid var(--theme-active-border);
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, var(--theme-active-surface), var(--theme-active-surface-alt));
+  box-shadow: var(--theme-active-shadow);
 }
 
 .eyebrow {
   margin: 0;
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--theme-active-accent);
 }
 
 .title {
@@ -29,7 +29,7 @@
   font-size: clamp(2.4rem, 5vw, 4.6rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
-  color: var(--color-heading);
+  color: var(--theme-active-text);
 }
 
 .subtitle {
@@ -37,7 +37,7 @@
   max-width: 62ch;
   font-size: 1.05rem;
   line-height: 1.7;
-  color: var(--color-text);
+  color: var(--theme-active-muted);
 }
 
 .actions {
@@ -51,10 +51,10 @@
   align-items: center;
   gap: 10px;
   padding: 14px 18px;
-  border-radius: 999px;
-  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  background: var(--theme-active-primary);
   color: #fff;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
   box-shadow: var(--shadow-sm);
 }
@@ -77,12 +77,12 @@
 .sectionTitle {
   margin: 0;
   font-size: 1.35rem;
-  color: var(--color-heading);
+  color: var(--theme-active-text);
 }
 
 .sectionDescription {
   margin: 0;
-  color: var(--color-text);
+  color: var(--theme-active-muted);
   line-height: 1.6;
 }
 
@@ -96,9 +96,21 @@
   grid-column: span 4;
 }
 
+.cardFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardMeta {
+  font-size: 0.9rem;
+  color: var(--theme-active-muted);
+}
+
 .cardSlug {
   font-size: 0.9rem;
-  color: var(--color-muted);
+  color: var(--theme-active-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 @media (max-width: 960px) {

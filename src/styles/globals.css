@@ -1,20 +1,47 @@
 html {
   font-family: var(--font-sans);
-  background: var(--color-background);
-  color: var(--color-text);
+  background: var(--theme-active-background);
+  color: var(--theme-active-text);
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
+  margin: 0;
   background:
-    radial-gradient(circle at top center, rgba(255, 255, 255, 0.65), transparent 36%),
-    var(--color-background);
+    radial-gradient(circle at top left, var(--theme-active-glow), transparent 28%),
+    radial-gradient(circle at top right, var(--theme-active-particle), transparent 24%),
+    var(--theme-active-background);
+  color: var(--theme-active-text);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: var(--theme-active-gradient);
+  opacity: 0.08;
+  z-index: -1;
 }
 
 #root {
   min-height: 100vh;
+  position: relative;
+  isolation: isolate;
 }
 
 ::selection {
-  background: rgba(154, 107, 62, 0.2);
+  background: rgba(207, 138, 74, 0.22);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }

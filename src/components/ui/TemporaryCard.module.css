@@ -4,31 +4,31 @@
   gap: 12px;
   min-height: 100%;
   padding: 20px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--theme-active-border);
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-sm);
+  background: var(--theme-active-surface);
+  box-shadow: var(--shadow-xs);
 }
 
 .badge {
   margin: 0;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--theme-active-accent);
 }
 
 .title {
   margin: 0;
   font-size: 1.1rem;
   line-height: 1.2;
-  color: var(--color-heading);
+  color: var(--theme-active-text);
 }
 
 .description {
   margin: 0;
-  color: var(--color-text);
+  color: var(--theme-active-muted);
   line-height: 1.6;
 }
 
