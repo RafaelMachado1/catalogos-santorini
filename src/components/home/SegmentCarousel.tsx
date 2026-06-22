@@ -78,6 +78,7 @@ function SegmentCarousel({ onSegmentHover, onSegmentLeave }: SegmentCarouselProp
                 segment={segment}
                 isActive={index === activeIndex}
                 isHovered={hoveredSegmentId === segment.id}
+                isDimmed={hoveredSegmentId !== null && hoveredSegmentId !== segment.id}
                 offset={wrappedOffset}
                 onHover={handleSegmentHover}
               />

@@ -1,12 +1,24 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(32px, 6vw, 64px);
-  border: 1px solid var(--theme-active-border);
+  padding: clamp(34px, 6vw, 68px);
+  border: 1px solid var(--hero-border);
   border-radius: calc(var(--radius-2xl) + 6px);
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(239, 228, 212, 0.9));
-  box-shadow: var(--theme-active-shadow);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(239, 228, 212, 0.9)),
+    var(--hero-gradient);
+  box-shadow: 0 24px 68px color-mix(in srgb, var(--hero-primary) 14%, transparent);
+  transition:
+    border-color 700ms ease,
+    box-shadow 700ms ease,
+    background 700ms ease,
+    transform 700ms ease;
+}
+
+.hero[data-active='true'] {
+  box-shadow:
+    0 30px 88px color-mix(in srgb, var(--hero-primary) 18%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--hero-accent) 22%, transparent) inset;
 }
 
 .backdrop {
@@ -16,26 +28,34 @@
 }
 
 .shapeOne,
-.shapeTwo {
+.shapeTwo,
+.shapeThree {
   position: absolute;
   border-radius: 999px;
-  filter: blur(10px);
+  filter: blur(12px);
 }
 
 .shapeOne {
-  top: -40px;
-  right: -40px;
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle, rgba(207, 138, 74, 0.18), transparent 72%);
+  top: -52px;
+  right: -46px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--hero-accent) 32%, transparent), transparent 70%);
 }
 
 .shapeTwo {
-  left: -50px;
-  bottom: -50px;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(74, 52, 40, 0.08), transparent 70%);
+  left: -72px;
+  bottom: -76px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--hero-primary) 18%, transparent), transparent 72%);
+}
+
+.shapeThree {
+  inset: 20% 34% auto auto;
+  width: 190px;
+  height: 190px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--hero-glow) 72%, transparent), transparent 68%);
 }
 
 .content {
@@ -52,7 +72,7 @@
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--theme-active-accent);
+  color: var(--hero-accent);
 }
 
 .title {
@@ -60,7 +80,12 @@
   font-size: clamp(2.6rem, 6vw, 4.9rem);
   line-height: 0.95;
   letter-spacing: -0.05em;
-  color: var(--theme-active-text);
+  color: var(--hero-text);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.hero[data-active='true'] .title {
+  color: color-mix(in srgb, var(--hero-text) 88%, var(--hero-primary) 12%);
 }
 
 .subtitle {
@@ -68,7 +93,7 @@
   max-width: 60ch;
   font-size: 1.05rem;
   line-height: 1.75;
-  color: var(--theme-active-muted);
+  color: var(--hero-muted);
 }
 
 .actions {
@@ -89,18 +114,33 @@
   border-radius: var(--radius-pill);
   text-decoration: none;
   font-weight: var(--font-weight-bold);
+  transition:
+    transform 700ms ease,
+    box-shadow 700ms ease,
+    background 700ms ease,
+    border-color 700ms ease,
+    color 700ms ease;
 }
 
 .primaryAction {
-  background: var(--theme-active-primary);
+  background: var(--hero-primary);
   color: #fff;
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 18px 36px color-mix(in srgb, var(--hero-primary) 18%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--hero-accent) 18%, transparent) inset;
+}
+
+.hero[data-active='true'] .primaryAction {
+  background: linear-gradient(135deg, var(--hero-primary), color-mix(in srgb, var(--hero-primary) 78%, black 22%));
+  box-shadow:
+    0 24px 48px color-mix(in srgb, var(--hero-primary) 24%, transparent),
+    0 0 28px color-mix(in srgb, var(--hero-glow) 38%, transparent);
 }
 
 .secondaryAction {
-  border: 1px solid var(--theme-active-border);
-  background: rgba(255, 255, 255, 0.76);
-  color: var(--theme-active-text);
+  border: 1px solid var(--hero-border);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--hero-text);
 }
 
 @media (max-width: 640px) {

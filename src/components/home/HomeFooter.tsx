@@ -4,9 +4,10 @@ import styles from './HomeFooter.module.css'
 
 type HomeFooterProps = {
   theme: ThemeDefinition
+  isActive: boolean
 }
 
-function HomeFooter({ theme }: HomeFooterProps) {
+function HomeFooter({ theme, isActive }: HomeFooterProps) {
   const style = {
     '--footer-primary': theme.primary,
     '--footer-accent': theme.accent,
@@ -19,7 +20,7 @@ function HomeFooter({ theme }: HomeFooterProps) {
   } as CSSProperties
 
   return (
-    <footer className={styles.footer} style={style}>
+    <footer className={styles.footer} style={style} data-active={isActive ? 'true' : 'false'}>
       <div className={styles.inner}>
         <div className={styles.brandBlock}>
           <p className={styles.brand}>Santorini</p>

@@ -5,9 +5,10 @@ import styles from './HomeHeader.module.css'
 
 type HomeHeaderProps = {
   theme: ThemeDefinition
+  isActive: boolean
 }
 
-function HomeHeader({ theme }: HomeHeaderProps) {
+function HomeHeader({ theme, isActive }: HomeHeaderProps) {
   const style = {
     '--header-primary': theme.primary,
     '--header-accent': theme.accent,
@@ -20,7 +21,7 @@ function HomeHeader({ theme }: HomeHeaderProps) {
   } as CSSProperties
 
   return (
-    <header className={styles.header} style={style}>
+    <header className={styles.header} style={style} data-active={isActive ? 'true' : 'false'}>
       <div className={styles.inner}>
         <div className={styles.brand}>
           <span className={styles.brandMark} aria-hidden="true">

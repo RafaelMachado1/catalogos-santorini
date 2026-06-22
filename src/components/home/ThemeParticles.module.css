@@ -1,25 +1,54 @@
 .layer {
   position: absolute;
-  inset: 0;
+  inset: -6% 0 0;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
   opacity: var(--particle-opacity);
   transition: opacity 700ms ease;
 }
 
+.layer::before,
+.layer::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(10px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.layer::before {
+  width: 48vw;
+  height: 48vw;
+  left: -10vw;
+  top: 6vh;
+  background: radial-gradient(circle, color-mix(in srgb, var(--particle-accent) 18%, transparent), transparent 68%);
+  opacity: 0.48;
+}
+
+.layer::after {
+  width: 42vw;
+  height: 42vw;
+  right: -8vw;
+  top: 20vh;
+  background: radial-gradient(circle, color-mix(in srgb, var(--particle-primary) 14%, transparent), transparent 70%);
+  opacity: 0.4;
+}
+
 .particle {
   position: absolute;
   top: var(--particle-top);
   left: var(--particle-left);
-  width: var(--particle-size);
-  height: var(--particle-size);
+  width: calc(var(--particle-size) * var(--particle-scale-factor));
+  height: calc(var(--particle-size) * var(--particle-scale-factor));
   border-radius: 999px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--particle-accent) 58%, white 42%), var(--particle-primary));
+  background: radial-gradient(circle, color-mix(in srgb, var(--particle-accent) 44%, white 56%), var(--particle-primary));
   box-shadow:
-    0 0 24px color-mix(in srgb, var(--particle-accent) 24%, transparent),
-    0 0 48px color-mix(in srgb, var(--particle-glow) 30%, transparent);
-  opacity: 0.22;
-  transform: translate3d(0, 0, 0) scale(0.75);
+    0 0 22px color-mix(in srgb, var(--particle-accent) 22%, transparent),
+    0 0 46px color-mix(in srgb, var(--particle-glow) 24%, transparent);
+  opacity: 0.18;
+  transform: translate3d(0, 0, 0) scale(0.8);
   animation: float 10s ease-in-out infinite;
   animation-delay: var(--particle-delay);
   animation-duration: var(--particle-duration);
@@ -28,16 +57,29 @@
 @keyframes float {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) scale(0.75);
+    transform: translate3d(0, 0, 0) scale(0.8);
   }
 
   50% {
-    transform: translate3d(0, -14px, 0) scale(1);
+    transform: translate3d(0, -16px, 0) scale(1.05);
   }
 }
 
 @media (max-width: 720px) {
   .layer {
-    opacity: calc(var(--particle-opacity) * 0.8);
+    inset: -3% 0 0;
+    opacity: calc(var(--particle-opacity) * 0.72);
+  }
+
+  .layer::before {
+    width: 70vw;
+    height: 70vw;
+    left: -20vw;
+  }
+
+  .layer::after {
+    width: 62vw;
+    height: 62vw;
+    right: -18vw;
   }
 }

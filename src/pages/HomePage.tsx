@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import type { CSSProperties } from 'react'
 import HomeFooter from '../components/home/HomeFooter'
 import HomeHeader from '../components/home/HomeHeader'
 import HomeHero from '../components/home/HomeHero'
@@ -18,23 +19,37 @@ function HomePage() {
     [hoveredSegment]
   )
 
+  const isThemeActive = hoveredSegment !== null
+
   useEffect(() => {
     applyThemeToDocument(activeTheme)
   }, [activeTheme])
 
   return (
-    <div className={styles.page} data-theme-active={activeTheme.id}>
-      <ThemeParticles theme={activeTheme} isActive={Boolean(hoveredSegment)} />
-      <HomeHeader theme={activeTheme} />
+    <div
+      className={`${styles.page} ${isThemeActive ? styles.themeActive : ''}`}
+      data-theme-active={activeTheme.id}
+      style={
+        {
+          '--home-active-primary': activeTheme.primary,
+          '--home-active-secondary': activeTheme.secondary,
+          '--home-active-accent': activeTheme.accent,
+          '--home-active-glow': activeTheme.glow,
+          '--home-active-gradient': activeTheme.gradient,
+        } as CSSProperties
+      }
+    >
+      <ThemeParticles theme={activeTheme} isActive={isThemeActive} />
+      <HomeHeader theme={activeTheme} isActive={isThemeActive} />
       <main className={styles.main}>
-        <HomeHero />
+        <HomeHero theme={activeTheme} isActive={isThemeActive} />
         <SegmentCarousel
           onSegmentHover={setHoveredSegment}
           onSegmentLeave={() => setHoveredSegment(null)}
         />
         <DifferentialsSection />
       </main>
-      <HomeFooter theme={activeTheme} />
+      <HomeFooter theme={activeTheme} isActive={isThemeActive} />
     </div>
   )
 }

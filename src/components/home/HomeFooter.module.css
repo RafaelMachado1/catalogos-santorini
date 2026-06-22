@@ -11,25 +11,39 @@
   display: block;
   height: 1px;
   margin-bottom: -1px;
-  background: linear-gradient(90deg, transparent, var(--footer-glow), transparent);
-  opacity: 0.48;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--footer-glow) 92%, white 8%), transparent);
+  opacity: 0.82;
   transition: opacity 700ms ease;
+}
+
+.footer[data-active='true']::before {
+  opacity: 1;
 }
 
 .inner {
   display: grid;
   gap: 18px;
   padding: 22px 24px;
-  border: 1px solid var(--footer-border);
-  border-top-color: color-mix(in srgb, var(--footer-border) 70%, white 30%);
+  border: 1px solid color-mix(in srgb, var(--footer-border) 92%, white 8%);
+  border-top-color: color-mix(in srgb, var(--footer-border) 66%, white 34%);
   border-radius: var(--radius-xl);
-  background: color-mix(in srgb, var(--footer-surface) 82%, white 18%);
+  background: color-mix(in srgb, var(--footer-surface) 72%, white 28%);
   backdrop-filter: var(--glass-backdrop);
-  box-shadow: var(--shadow-xs);
+  box-shadow:
+    0 14px 30px rgba(32, 23, 17, 0.06),
+    0 0 0 1px color-mix(in srgb, var(--footer-glow) 16%, transparent) inset;
   transition:
     border-color 700ms ease,
     box-shadow 700ms ease,
     background 700ms ease;
+}
+
+.footer[data-active='true'] .inner {
+  border-color: color-mix(in srgb, var(--footer-primary) 28%, var(--footer-border));
+  box-shadow:
+    0 18px 42px color-mix(in srgb, var(--footer-primary) 12%, transparent),
+    0 0 28px color-mix(in srgb, var(--footer-glow) 30%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--footer-primary) 14%, transparent) inset;
 }
 
 .brandBlock {
@@ -44,6 +58,11 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--footer-text);
+  transition: color 700ms ease;
+}
+
+.footer[data-active='true'] .brand {
+  color: color-mix(in srgb, var(--footer-text) 82%, var(--footer-primary) 18%);
 }
 
 .copy {
@@ -62,22 +81,33 @@
 .links a {
   padding: 10px 14px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.84);
   text-decoration: none;
   color: var(--footer-text);
   font-weight: var(--font-weight-semibold);
-  border: 1px solid color-mix(in srgb, var(--footer-border) 70%, white 30%);
+  border: 1px solid color-mix(in srgb, var(--footer-border) 78%, white 22%);
   transition:
     border-color 700ms ease,
     color 700ms ease,
     box-shadow 700ms ease,
-    background 700ms ease;
+    background 700ms ease,
+    transform 700ms ease;
+}
+
+.footer[data-active='true'] .links a {
+  border-color: color-mix(in srgb, var(--footer-primary) 24%, var(--footer-border));
+  box-shadow:
+    0 10px 22px color-mix(in srgb, var(--footer-primary) 8%, transparent),
+    0 0 18px color-mix(in srgb, var(--footer-glow) 24%, transparent);
 }
 
 .links a:hover,
 .links a:focus-visible {
-  border-color: color-mix(in srgb, var(--footer-primary) 20%, var(--footer-border));
-  box-shadow: 0 12px 24px rgba(32, 23, 17, 0.06);
+  border-color: color-mix(in srgb, var(--footer-primary) 42%, var(--footer-border));
+  box-shadow:
+    0 12px 24px color-mix(in srgb, var(--footer-primary) 10%, transparent),
+    0 0 18px color-mix(in srgb, var(--footer-glow) 30%, transparent);
+  transform: translateY(-1px);
 }
 
 .meta {

@@ -7,14 +7,15 @@ type ThemeParticlesProps = {
   isActive: boolean
 }
 
-const particles = Array.from({ length: 10 }, (_, index) => index)
+const particles = Array.from({ length: 12 }, (_, index) => index)
 
 function ThemeParticles({ theme, isActive }: ThemeParticlesProps) {
   const style = {
     '--particle-primary': theme.primary,
     '--particle-accent': theme.accent,
     '--particle-glow': theme.glow,
-    '--particle-opacity': isActive ? '1' : '0.05',
+    '--particle-opacity': isActive ? '1' : '0.04',
+    '--particle-scale-factor': isActive ? '1.14' : '1',
   } as CSSProperties
 
   return (
@@ -25,9 +26,9 @@ function ThemeParticles({ theme, isActive }: ThemeParticlesProps) {
           className={styles.particle}
           style={
             {
-              '--particle-size': `${10 + (particle % 4) * 5}px`,
-              '--particle-top': `${8 + ((particle * 11) % 72)}%`,
-              '--particle-left': `${5 + ((particle * 17) % 86)}%`,
+              '--particle-size': `${12 + (particle % 5) * 4}px`,
+              '--particle-top': `${6 + ((particle * 11) % 76)}%`,
+              '--particle-left': `${2 + ((particle * 17) % 92)}%`,
               '--particle-delay': `${particle * 90}ms`,
               '--particle-duration': `${3200 + particle * 120}ms`,
             } as CSSProperties

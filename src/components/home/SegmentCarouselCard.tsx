@@ -8,6 +8,7 @@ import styles from './SegmentCarouselCard.module.css'
 type SegmentCarouselCardProps = {
   segment: Segment
   isActive: boolean
+  isDimmed: boolean
   isHovered: boolean
   offset: number
   onHover: (segment: Segment) => void
@@ -24,9 +25,8 @@ function getCardLayerStyles(offset: number): CSSProperties {
       '--card-blur': '0px',
       '--card-z': '4',
       '--card-pointer': 'auto',
-      '--card-hover-scale': '1.1',
+      '--card-hover-scale': '1.08',
       '--card-hover-z': '8',
-      '--card-hover-glow': '1',
     } as CSSProperties
   }
 
@@ -34,13 +34,12 @@ function getCardLayerStyles(offset: number): CSSProperties {
     return {
       '--card-x': offset > 0 ? '32%' : '-32%',
       '--card-scale': '0.88',
-      '--card-opacity': '0.66',
+      '--card-opacity': '0.7',
       '--card-blur': '0.5px',
       '--card-z': '3',
       '--card-pointer': 'none',
-      '--card-hover-scale': '0.92',
-      '--card-hover-z': '4',
-      '--card-hover-glow': '0.55',
+      '--card-hover-scale': '0.88',
+      '--card-hover-z': '3',
     } as CSSProperties
   }
 
@@ -48,13 +47,12 @@ function getCardLayerStyles(offset: number): CSSProperties {
     return {
       '--card-x': offset > 0 ? '58%' : '-58%',
       '--card-scale': '0.78',
-      '--card-opacity': '0.4',
+      '--card-opacity': '0.58',
       '--card-blur': '1px',
       '--card-z': '2',
       '--card-pointer': 'none',
-      '--card-hover-scale': '0.82',
-      '--card-hover-z': '3',
-      '--card-hover-glow': '0.45',
+      '--card-hover-scale': '0.78',
+      '--card-hover-z': '2',
     } as CSSProperties
   }
 
@@ -62,18 +60,18 @@ function getCardLayerStyles(offset: number): CSSProperties {
     '--card-x': offset > 0 ? '82%' : '-82%',
     '--card-scale': '0.72',
     '--card-opacity': '0',
-    '--card-blur': '2px',
+    '--card-blur': '1.5px',
     '--card-z': '1',
     '--card-pointer': 'none',
     '--card-hover-scale': '0.72',
     '--card-hover-z': '1',
-    '--card-hover-glow': '0',
   } as CSSProperties
 }
 
 function SegmentCarouselCard({
   segment,
   isActive,
+  isDimmed,
   isHovered,
   offset,
   onHover,
@@ -97,6 +95,7 @@ function SegmentCarouselCard({
       className={styles.card}
       style={style}
       data-active={isActive ? 'true' : 'false'}
+      data-dimmed={isDimmed ? 'true' : 'false'}
       data-hovered={isHovered ? 'true' : 'false'}
       aria-hidden={!isActive && Math.abs(offset) > 2}
       onMouseEnter={() => onHover(segment)}
@@ -128,7 +127,7 @@ function SegmentCarouselCard({
 
       <div className={styles.footer}>
         <Link className={styles.action} to={segment.catalogPath}>
-          Acessar catálogo
+          Acessar catalogo
           <ArrowRight size={16} />
         </Link>
       </div>

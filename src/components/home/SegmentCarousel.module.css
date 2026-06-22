@@ -1,4 +1,6 @@
 .section {
+  position: relative;
+  z-index: 3;
   display: grid;
   gap: 18px;
 }
@@ -32,12 +34,14 @@
 
 .carousel {
   position: relative;
+  z-index: 3;
   min-height: 560px;
   padding: 8px 0 72px;
 }
 
 .track {
   position: relative;
+  z-index: 2;
   min-height: 480px;
 }
 
@@ -45,6 +49,7 @@
   position: absolute;
   right: 0;
   bottom: 10px;
+  z-index: 4;
   display: flex;
   gap: 10px;
 }
@@ -57,14 +62,14 @@
   height: 42px;
   border: 1px solid var(--theme-active-border);
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.86);
   color: var(--theme-active-text);
   box-shadow: var(--shadow-xs);
 }
 
 .controlButton:hover,
 .controlButton:focus-visible {
-  border-color: color-mix(in srgb, var(--theme-active-primary) 20%, var(--theme-active-border));
+  border-color: color-mix(in srgb, var(--theme-active-primary) 24%, var(--theme-active-border));
 }
 
 @media (max-width: 1024px) {
