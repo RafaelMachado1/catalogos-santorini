@@ -1,0 +1,85 @@
+.header {
+  position: relative;
+  z-index: var(--z-header);
+  padding: 24px 0 0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  border: 1px solid var(--theme-active-border);
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  box-shadow: var(--shadow-xs);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-pill);
+  background: var(--theme-active-surface-alt);
+  color: var(--theme-active-primary);
+  font-weight: var(--font-weight-bold);
+  flex: 0 0 auto;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--theme-active-muted);
+}
+
+.brandName {
+  margin: 2px 0 0;
+  font-size: 1rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--theme-active-text);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--theme-active-text);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: 0 10px 24px rgba(32, 23, 17, 0.06);
+}
+
+@media (max-width: 720px) {
+  .inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}

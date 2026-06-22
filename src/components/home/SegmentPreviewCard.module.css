@@ -1,0 +1,128 @@
+.card {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  min-height: 100%;
+  padding: 18px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9)),
+    var(--card-gradient);
+  box-shadow: 0 18px 50px color-mix(in srgb, var(--card-primary) 12%, transparent);
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, var(--card-glow), transparent 42%);
+  pointer-events: none;
+}
+
+.visual {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--card-primary);
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.slug {
+  font-size: 0.82rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--card-muted);
+}
+
+.body,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+.body {
+  display: grid;
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+  color: var(--card-text);
+  font-size: 1.18rem;
+  line-height: 1.15;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--card-primary);
+}
+
+.description {
+  margin: 0;
+  color: var(--card-muted);
+  line-height: 1.6;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 4px 0 0;
+  list-style: none;
+}
+
+.tag {
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--card-text);
+  font-size: 0.78rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.metaRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--card-muted);
+  font-size: 0.88rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--card-primary);
+  color: #fff;
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+}
