@@ -1,5 +1,5 @@
 import { homeTheme, themeMap, themes } from '../data/themes'
-import { segments } from '../data/segments'
+import { getSegmentBySlug } from './segments'
 import type { ThemeDefinition, ThemeId } from '../types/theme'
 
 export function getThemeById(themeId: ThemeId | undefined | null): ThemeDefinition {
@@ -11,7 +11,7 @@ export function getThemeById(themeId: ThemeId | undefined | null): ThemeDefiniti
 }
 
 export function getSegmentTheme(segmentSlug: string | undefined | null): ThemeDefinition {
-  const segment = segments.find((item) => item.slug === segmentSlug)
+  const segment = getSegmentBySlug(segmentSlug)
   return getThemeById(segment?.themeId)
 }
 
