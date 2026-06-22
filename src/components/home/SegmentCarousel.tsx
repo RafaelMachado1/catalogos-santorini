@@ -1,6 +1,8 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import type { CSSProperties } from 'react'
 import type { Segment } from '../../types/catalog'
+import type { ThemeDefinition } from '../../types/theme'
 import { getAllSegments } from '../../utils/segments'
 import SegmentCarouselCard from './SegmentCarouselCard'
 import styles from './SegmentCarousel.module.css'
@@ -8,6 +10,7 @@ import styles from './SegmentCarousel.module.css'
 const AUTOPLAY_DELAY_MS = 4500
 
 type SegmentCarouselProps = {
+  theme: ThemeDefinition
   selectedSegment: Segment | null
   isTransitioning: boolean
   onSegmentHover: (segment: Segment) => void
@@ -18,6 +21,7 @@ type SegmentCarouselProps = {
 }
 
 function SegmentCarousel({
+  theme,
   selectedSegment,
   isTransitioning,
   onSegmentHover,
@@ -149,15 +153,12 @@ function SegmentCarousel({
   return (
     <section id="segmentos" className={styles.section}>
       <div className={styles.header}>
-        <p className={styles.eyebrow}>Segmentos</p>
-        <h2 className={styles.title}>Prévia dos 13 segmentos oficiais</h2>
-        <p className={styles.subtitle}>
-          Carrossel visual com profundidade suave, navegação acessível, autoplay e resposta ao hover do segmento.
-        </p>
+        <h2 className={styles.title}>Segmentos</h2>
       </div>
 
       <div
         className={styles.carousel}
+        style={{ '--segment-title-color': theme.primary } as CSSProperties}
         data-selected={selectedSegment ? 'true' : 'false'}
         data-transitioning={isTransitioning ? 'true' : 'false'}
         onMouseEnter={() => setIsPaused(true)}

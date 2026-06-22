@@ -19,7 +19,7 @@ function DifferentialsSection() {
         <p className={styles.eyebrow}>Diferenciais Santorini</p>
         <h2 className={styles.title}>O que a proposta entrega além dos catálogos</h2>
         <p className={styles.subtitle}>
-          A base institucional já deixa espaço para conteúdo de valor, operação comercial e suporte especializado.
+           base institucional já deixa espaço para conteúdo de valor, operação comercial e suporte especializado.
         </p>
       </div>
 

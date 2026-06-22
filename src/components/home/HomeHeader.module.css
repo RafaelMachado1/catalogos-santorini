@@ -1,7 +1,8 @@
 .header {
   position: relative;
   z-index: var(--z-header);
-  padding: 24px 0 0;
+  width: 100%;
+  padding: 4px 0 0;
   transition:
     border-color 700ms ease,
     box-shadow 700ms ease,
@@ -9,30 +10,18 @@
     transform 700ms ease;
 }
 
-.header::before {
-  content: '';
-  position: absolute;
-  inset: 0 -6vw auto;
-  height: 170px;
-  pointer-events: none;
-  background: radial-gradient(circle at center, color-mix(in srgb, var(--header-glow) 95%, transparent), transparent 58%);
-  opacity: 0.82;
-  transition: opacity 700ms ease;
-}
-
-.header[data-active='true']::before {
-  opacity: 1;
-}
-
 .inner {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 16px 18px;
+  justify-content: center;
+  gap: 8px;
+  width: min(100%, 1000px);
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 12px 14px;
   border: 1px solid color-mix(in srgb, var(--header-border) 90%, white 10%);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-pill);
   background: color-mix(in srgb, var(--header-surface) 74%, white 26%);
   backdrop-filter: var(--glass-backdrop);
   box-shadow:
@@ -52,75 +41,19 @@
     0 0 0 1px color-mix(in srgb, var(--header-primary) 16%, transparent) inset;
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-width: 0;
-}
-
-.brandMark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-pill);
-  background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--header-accent) 58%, white 42%), var(--header-surface-alt));
-  color: var(--header-primary);
-  font-weight: var(--font-weight-bold);
-  flex: 0 0 auto;
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--header-primary) 12%, transparent),
-    0 0 26px color-mix(in srgb, var(--header-glow) 40%, transparent);
-  transition:
-    background 700ms ease,
-    color 700ms ease,
-    box-shadow 700ms ease,
-    transform 700ms ease;
-}
-
-.header[data-active='true'] .brandMark {
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--header-primary) 18%, transparent),
-    0 0 34px color-mix(in srgb, var(--header-glow) 56%, transparent);
-}
-
-.kicker {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--header-muted);
-}
-
-.brandName {
-  margin: 2px 0 0;
-  font-size: 1rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--header-text);
-  transition: color 700ms ease, text-shadow 700ms ease;
-}
-
-.header[data-active='true'] .brandName {
-  color: color-mix(in srgb, var(--header-text) 82%, var(--header-primary) 18%);
-  text-shadow: 0 0 16px color-mix(in srgb, var(--header-glow) 22%, transparent);
-}
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
 }
 
 .actionButton {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 14px;
+  padding: 10px 13px;
   border: 1px solid color-mix(in srgb, var(--header-border) 82%, white 18%);
   border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.8);
@@ -155,11 +88,13 @@
 
 @media (max-width: 720px) {
   .inner {
+    width: 100%;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
   }
 
   .actions {
-    justify-content: flex-start;
+    width: 100%;
+    justify-content: center;
   }
 }

@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(34px, 6vw, 68px);
+  padding: clamp(22px, 3.4vw, 36px);
   border: 1px solid var(--hero-border);
   border-radius: calc(var(--radius-2xl) + 6px);
   background:
@@ -62,8 +62,8 @@
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 18px;
-  max-width: 720px;
+  gap: 8px;
+  max-width: 1000px;
 }
 
 .eyebrow {
@@ -77,9 +77,9 @@
 
 .title {
   margin: 0;
-  font-size: clamp(2.6rem, 6vw, 4.9rem);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  font-size: clamp(1.95rem, 2.8vw, 3.05rem);
+  line-height: 1.06;
+  letter-spacing: 0;
   color: var(--hero-text);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
 }
@@ -88,63 +88,20 @@
   color: color-mix(in srgb, var(--hero-text) 88%, var(--hero-primary) 12%);
 }
 
-.subtitle {
-  margin: 0;
-  max-width: 60ch;
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--hero-muted);
+@media (min-width: 1025px) {
+  .title {
+    white-space: nowrap;
+  }
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 4px;
-}
-
-.primaryAction,
-.secondaryAction {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 0 18px;
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  font-weight: var(--font-weight-bold);
-  transition:
-    transform 700ms ease,
-    box-shadow 700ms ease,
-    background 700ms ease,
-    border-color 700ms ease,
-    color 700ms ease;
-}
-
-.primaryAction {
-  background: var(--hero-primary);
-  color: #fff;
-  box-shadow:
-    0 18px 36px color-mix(in srgb, var(--hero-primary) 18%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--hero-accent) 18%, transparent) inset;
-}
-
-.hero[data-active='true'] .primaryAction {
-  background: linear-gradient(135deg, var(--hero-primary), color-mix(in srgb, var(--hero-primary) 78%, black 22%));
-  box-shadow:
-    0 24px 48px color-mix(in srgb, var(--hero-primary) 24%, transparent),
-    0 0 28px color-mix(in srgb, var(--hero-glow) 38%, transparent);
-}
-
-.secondaryAction {
-  border: 1px solid var(--hero-border);
-  background: rgba(255, 255, 255, 0.78);
-  color: var(--hero-text);
+@media (max-width: 1024px) {
+  .title {
+    white-space: normal;
+  }
 }
 
 @media (max-width: 640px) {
   .hero {
-    padding: 28px 22px;
+    padding: 24px 18px;
   }
 }

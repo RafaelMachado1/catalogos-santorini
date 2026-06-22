@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { useNavigate } from 'react-router-dom'
-import HomeFooter from '../components/home/HomeFooter'
+import HomeConsultantCTA from '../components/home/HomeConsultantCTA'
 import HomeHeader from '../components/home/HomeHeader'
 import CatalogTransitionOverlay from '../components/home/CatalogTransitionOverlay'
 import HomeHero from '../components/home/HomeHero'
 import SegmentCarousel from '../components/home/SegmentCarousel'
 import ThemeParticles from '../components/home/ThemeParticles'
-import DifferentialsSection from '../components/home/DifferentialsSection'
 import { homeTheme } from '../data/themes'
 import type { Segment } from '../types/catalog'
 import { applyThemeToDocument, getThemeById } from '../utils/theme'
@@ -107,19 +106,21 @@ function HomePage() {
       <ThemeParticles theme={activeTheme} isActive={isThemeActive} />
       <HomeHeader theme={activeTheme} isActive={isThemeActive} />
       <main className={styles.main}>
-        <HomeHero theme={activeTheme} isActive={isThemeActive} />
-        <SegmentCarousel
-          selectedSegment={selectedSegment}
-          isTransitioning={isTransitioning}
-          onSegmentHover={handleSegmentHover}
-          onSegmentLeave={handleSegmentLeave}
-          onSegmentSelect={handleSegmentSelect}
-          onClearSelection={handleClearSelection}
-          onAccessCatalog={handleAccessCatalog}
-        />
-        <DifferentialsSection />
+        <section className={styles.introSection}>
+          <HomeHero theme={activeTheme} isActive={isThemeActive} />
+          <SegmentCarousel
+            theme={activeTheme}
+            selectedSegment={selectedSegment}
+            isTransitioning={isTransitioning}
+            onSegmentHover={handleSegmentHover}
+            onSegmentLeave={handleSegmentLeave}
+            onSegmentSelect={handleSegmentSelect}
+            onClearSelection={handleClearSelection}
+            onAccessCatalog={handleAccessCatalog}
+          />
+          <HomeConsultantCTA theme={activeTheme} isActive={isThemeActive} isSelected={selectedSegment !== null} />
+        </section>
       </main>
-      <HomeFooter theme={activeTheme} isActive={isThemeActive} />
       <CatalogTransitionOverlay
         segment={transitionSegment}
         isActive={isTransitioning}

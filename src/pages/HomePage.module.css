@@ -2,7 +2,7 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  gap: 28px;
+  gap: 12px;
   max-width: var(--container-lg);
   margin: 0 auto;
   padding-bottom: 8px;
@@ -47,5 +47,13 @@
   position: relative;
   z-index: 2;
   display: grid;
-  gap: 34px;
+  gap: 0;
+}
+
+.introSection {
+  display: grid;
+  gap: 10px;
+  min-height: calc(100vh - 92px);
+  align-content: start;
+  padding-bottom: clamp(28px, 4vh, 40px);
 }

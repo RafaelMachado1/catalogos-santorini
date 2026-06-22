@@ -2,27 +2,20 @@
   position: relative;
   z-index: 3;
   display: grid;
-  gap: 18px;
+  gap: 0;
 }
 
 .header {
   display: grid;
-  gap: 8px;
-}
-
-.eyebrow {
-  margin: 0;
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--theme-active-accent);
+  gap: 2px;
 }
 
 .title {
   margin: 0;
-  font-size: 1.5rem;
-  color: var(--theme-active-text);
+  color: var(--segment-title-color, var(--theme-active-primary));
+  font-size: 1.35rem;
+  white-space: nowrap;
+  transition: color 700ms ease;
 }
 
 .subtitle {
@@ -34,28 +27,28 @@
 .carousel {
   position: relative;
   z-index: 3;
-  min-height: 560px;
-  padding: 8px 0 72px;
+  min-height: 396px;
+  padding: 0 0 24px;
 }
 
 .carousel[data-selected='true'] {
-  min-height: 640px;
+  min-height: 560px;
 }
 
 .track {
   position: relative;
   z-index: 2;
-  min-height: 480px;
+  min-height: 396px;
 }
 
 .carousel[data-selected='true'] .track {
-  min-height: 560px;
+  min-height: 520px;
 }
 
 .controls {
   position: absolute;
   right: 0;
-  bottom: 10px;
+  bottom: 0;
   z-index: 4;
   display: flex;
   gap: 10px;
@@ -86,35 +79,54 @@
 
 @media (max-width: 1024px) {
   .carousel {
-    min-height: 520px;
+    min-height: 430px;
   }
 
   .carousel[data-selected='true'] {
-    min-height: 620px;
+    min-height: 540px;
   }
 
   .track {
-    min-height: 440px;
+    min-height: 396px;
   }
 
   .carousel[data-selected='true'] .track {
-    min-height: 540px;
+    min-height: 500px;
   }
 }
 
 @media (max-width: 720px) {
-  .carousel,
-  .carousel[data-selected='true'] {
-    min-height: 620px;
+  .carousel {
+    min-height: 560px;
   }
 
-  .track,
+  .carousel[data-selected='true'] {
+    min-height: 640px;
+  }
+
+  .track {
+    min-height: 520px;
+  }
+
   .carousel[data-selected='true'] .track {
-    min-height: 540px;
+    min-height: 600px;
   }
 
   .controls {
     right: auto;
     left: 0;
+  }
+}
+
+@media (min-width: 1025px) {
+  .title {
+    max-width: 100%;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1024px) {
+  .title {
+    white-space: normal;
   }
 }

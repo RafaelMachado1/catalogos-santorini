@@ -23,20 +23,10 @@ function HomeHeader({ theme, isActive }: HomeHeaderProps) {
   return (
     <header className={styles.header} style={style} data-active={isActive ? 'true' : 'false'}>
       <div className={styles.inner}>
-        <div className={styles.brand}>
-          <span className={styles.brandMark} aria-hidden="true">
-            S
-          </span>
-          <div>
-            <p className={styles.kicker}>Catálogos Interativos</p>
-            <p className={styles.brandName}>Santorini</p>
-          </div>
-        </div>
-
         <div className={styles.actions}>
           <button className={styles.actionButton} type="button">
             <Share2 size={16} />
-            Compartilhar catálogo
+            Compartilhar
           </button>
           <button className={styles.actionButton} type="button">
             <Camera size={16} />

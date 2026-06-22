@@ -1,0 +1,88 @@
+.section {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 0;
+  text-align: center;
+}
+
+.section[data-selected='false'] {
+  margin-top: clamp(18px, 3vh, 36px);
+}
+
+.section[data-selected='true'] {
+  margin-top: 0;
+}
+
+.text {
+  margin: 0;
+  color: var(--cta-muted);
+  font-size: 0.98rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.section[data-selected='false'] .text {
+  margin-top: clamp(2px, 0.8vh, 8px);
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 clamp(26px, 5vw, 46px);
+  border: 1px solid color-mix(in srgb, var(--cta-accent) 38%, white 62%);
+  border-radius: var(--radius-pill);
+  background:
+    linear-gradient(135deg, var(--cta-accent), color-mix(in srgb, var(--cta-primary) 78%, var(--cta-accent) 22%));
+  color: #fff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  box-shadow:
+    0 24px 58px color-mix(in srgb, var(--cta-accent) 28%, transparent),
+    0 0 42px color-mix(in srgb, var(--cta-glow) 72%, transparent),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  transition:
+    transform 350ms ease,
+    box-shadow 700ms ease,
+    background 700ms ease,
+    border-color 700ms ease;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    0 30px 72px color-mix(in srgb, var(--cta-accent) 34%, transparent),
+    0 0 56px color-mix(in srgb, var(--cta-glow) 82%, transparent),
+    0 0 0 1px rgba(255, 255, 255, 0.24) inset;
+}
+
+.section[data-active='true'] .button {
+  border-color: color-mix(in srgb, var(--cta-primary) 48%, white 52%);
+  background:
+    linear-gradient(135deg, var(--cta-primary), color-mix(in srgb, var(--cta-accent) 76%, var(--cta-primary) 24%));
+}
+
+@media (max-width: 640px) {
+  .button {
+    width: min(100%, 420px);
+    min-height: 52px;
+    padding: 0 22px;
+  }
+}

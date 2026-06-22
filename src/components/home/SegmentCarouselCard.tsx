@@ -1,4 +1,5 @@
 import { ArrowRight, MessageCircle, Share2, X } from 'lucide-react'
+import { useState } from 'react'
 import type { CSSProperties, KeyboardEvent, MouseEvent } from 'react'
 import type { Segment } from '../../types/catalog'
 import { getThemeById } from '../../utils/theme'
@@ -37,39 +38,52 @@ function getCardLayerStyles(offset: number): CSSProperties {
 
   if (distance === 1) {
     return {
-      '--card-x': offset > 0 ? '32%' : '-32%',
-      '--card-scale': '0.88',
-      '--card-opacity': '0.7',
+      '--card-x': offset > 0 ? '38%' : '-38%',
+      '--card-scale': '0.84',
+      '--card-opacity': '0.68',
       '--card-blur': '0.5px',
       '--card-z': '3',
       '--card-pointer': 'none',
-      '--card-hover-scale': '0.88',
+      '--card-hover-scale': '0.84',
       '--card-hover-z': '3',
     } as CSSProperties
   }
 
   if (distance === 2) {
     return {
-      '--card-x': offset > 0 ? '58%' : '-58%',
-      '--card-scale': '0.78',
-      '--card-opacity': '0.58',
+      '--card-x': offset > 0 ? '70%' : '-70%',
+      '--card-scale': '0.72',
+      '--card-opacity': '0.5',
       '--card-blur': '1px',
       '--card-z': '2',
       '--card-pointer': 'none',
-      '--card-hover-scale': '0.78',
+      '--card-hover-scale': '0.72',
       '--card-hover-z': '2',
     } as CSSProperties
   }
 
+  if (distance === 3) {
+    return {
+      '--card-x': offset > 0 ? '100%' : '-100%',
+      '--card-scale': '0.62',
+      '--card-opacity': '0.34',
+      '--card-blur': '1.4px',
+      '--card-z': '1',
+      '--card-pointer': 'none',
+      '--card-hover-scale': '0.62',
+      '--card-hover-z': '1',
+    } as CSSProperties
+  }
+
   return {
-    '--card-x': offset > 0 ? '82%' : '-82%',
-    '--card-scale': '0.72',
+    '--card-x': offset > 0 ? '128%' : '-128%',
+    '--card-scale': '0.56',
     '--card-opacity': '0',
-    '--card-blur': '1.5px',
-    '--card-z': '1',
+    '--card-blur': '1.6px',
+    '--card-z': '0',
     '--card-pointer': 'none',
-    '--card-hover-scale': '0.72',
-    '--card-hover-z': '1',
+    '--card-hover-scale': '0.56',
+    '--card-hover-z': '0',
   } as CSSProperties
 }
 
@@ -88,6 +102,8 @@ function SegmentCarouselCard({
   onAccessCatalog,
 }: SegmentCarouselCardProps) {
   const theme = getThemeById(segment.themeId)
+  const [hasImageError, setHasImageError] = useState(false)
+
   const style = {
     ...getCardLayerStyles(offset),
     '--card-primary': theme.primary,
@@ -101,6 +117,13 @@ function SegmentCarouselCard({
     '--card-border': theme.border,
   } as CSSProperties
   const canInteract = (isFrontCard || isSelected) && !isTransitioning
+
+  const shouldShowImage = !hasImageError
+  const cardDescription = `Soluções em higiene e limpeza profissional para ${segment.title}.`
+
+  function handleImageError() {
+    setHasImageError(true)
+  }
 
   function handleCardClick(event: MouseEvent<HTMLElement>) {
     event.stopPropagation()
@@ -160,7 +183,7 @@ function SegmentCarouselCard({
       data-hovered={isHovered ? 'true' : 'false'}
       data-selected={isSelected ? 'true' : 'false'}
       aria-current={isSelected ? 'true' : undefined}
-      aria-hidden={!isActive && Math.abs(offset) > 2}
+      aria-hidden={!isActive && Math.abs(offset) > 3}
       onClick={handleCardClick}
       onMouseEnter={handleCardHover}
       onFocus={handleCardHover}
@@ -176,27 +199,29 @@ function SegmentCarouselCard({
         <X size={18} />
       </button>
 
+      <div className={styles.media} aria-hidden="true">
+        {shouldShowImage ? (
+          <img
+            className={styles.mediaImage}
+            src={segment.coverImages.primary}
+            alt=""
+            loading="lazy"
+            onError={handleImageError}
+          />
+        ) : (
+          <div className={styles.mediaFallback} />
+        )}
+        <div className={styles.mediaOverlay} />
+      </div>
+
       <div className={styles.visual}>
         <span className={styles.badge}>{theme.name}</span>
-        <span className={styles.slug}>/{segment.slug}</span>
       </div>
 
       <div className={styles.body}>
         <h3 className={styles.title}>{segment.shortTitle || segment.title}</h3>
-        <p className={styles.subtitle}>{segment.subtitle}</p>
-        <p className={styles.description}>{segment.description}</p>
+        <p className={styles.description}>{cardDescription}</p>
 
-        <ul className={styles.tags} aria-label={`Tags de ${segment.title}`}>
-          {segment.tags.map((tag) => (
-            <li key={tag} className={styles.tag}>
-              {tag}
-            </li>
-          ))}
-        </ul>
-
-        <div className={styles.metaRow}>
-          <span className={styles.status}>Status: {segment.status}</span>
-        </div>
       </div>
 
       <div className={styles.footer}>
