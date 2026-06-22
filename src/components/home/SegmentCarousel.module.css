@@ -1,0 +1,93 @@
+.section {
+  display: grid;
+  gap: 18px;
+}
+
+.header {
+  display: grid;
+  gap: 8px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--theme-active-accent);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--theme-active-text);
+}
+
+.subtitle {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--theme-active-muted);
+  line-height: 1.65;
+}
+
+.carousel {
+  position: relative;
+  min-height: 560px;
+  padding: 8px 0 72px;
+}
+
+.track {
+  position: relative;
+  min-height: 480px;
+}
+
+.controls {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.controlButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--theme-active-border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--theme-active-text);
+  box-shadow: var(--shadow-xs);
+}
+
+.controlButton:hover,
+.controlButton:focus-visible {
+  border-color: color-mix(in srgb, var(--theme-active-primary) 20%, var(--theme-active-border));
+}
+
+@media (max-width: 1024px) {
+  .carousel {
+    min-height: 520px;
+  }
+
+  .track {
+    min-height: 440px;
+  }
+}
+
+@media (max-width: 720px) {
+  .carousel {
+    min-height: 500px;
+  }
+
+  .track {
+    min-height: 420px;
+  }
+
+  .controls {
+    right: auto;
+    left: 0;
+  }
+}

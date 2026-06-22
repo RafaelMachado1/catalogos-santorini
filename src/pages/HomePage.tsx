@@ -3,7 +3,7 @@ import HomeFooter from '../components/home/HomeFooter'
 import HomeHeader from '../components/home/HomeHeader'
 import HomeHero from '../components/home/HomeHero'
 import DifferentialsSection from '../components/home/DifferentialsSection'
-import SegmentPreviewSection from '../components/home/SegmentPreviewSection'
+import SegmentCarousel from '../components/home/SegmentCarousel'
 import { applyThemeToDocument, getThemeById } from '../utils/theme'
 import styles from './HomePage.module.css'
 
@@ -17,7 +17,7 @@ function HomePage() {
       <HomeHeader />
       <main className={styles.main}>
         <HomeHero />
-        <SegmentPreviewSection />
+        <SegmentCarousel />
         <DifferentialsSection />
       </main>
       <HomeFooter />
