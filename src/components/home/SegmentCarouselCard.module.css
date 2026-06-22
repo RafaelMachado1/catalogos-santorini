@@ -269,7 +269,15 @@
   text-decoration: none;
   font-weight: var(--font-weight-bold);
   border: 0;
+  font: inherit;
+  cursor: pointer;
   box-shadow: 0 14px 28px color-mix(in srgb, var(--card-primary) 18%, transparent);
+}
+
+.action:disabled,
+.expandedAction:disabled {
+  cursor: wait;
+  opacity: 0.76;
 }
 
 .expandedActions {

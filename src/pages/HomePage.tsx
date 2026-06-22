@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { useNavigate } from 'react-router-dom'
 import HomeFooter from '../components/home/HomeFooter'
 import HomeHeader from '../components/home/HomeHeader'
+import CatalogTransitionOverlay from '../components/home/CatalogTransitionOverlay'
 import HomeHero from '../components/home/HomeHero'
 import SegmentCarousel from '../components/home/SegmentCarousel'
 import ThemeParticles from '../components/home/ThemeParticles'
@@ -11,23 +13,37 @@ import type { Segment } from '../types/catalog'
 import { applyThemeToDocument, getThemeById } from '../utils/theme'
 import styles from './HomePage.module.css'
 
+const TRANSITION_DURATION_MS = 1500
+
 function HomePage() {
+  const navigate = useNavigate()
+  const transitionTimeoutRef = useRef<number | null>(null)
   const [hoveredSegment, setHoveredSegment] = useState<Segment | null>(null)
   const [selectedSegment, setSelectedSegment] = useState<Segment | null>(null)
+  const [transitionSegment, setTransitionSegment] = useState<Segment | null>(null)
 
   const activeTheme = useMemo(() => {
-    const activeSegment = selectedSegment ?? hoveredSegment
+    const activeSegment = transitionSegment ?? selectedSegment ?? hoveredSegment
     return activeSegment ? getThemeById(activeSegment.themeId) : homeTheme
-  }, [hoveredSegment, selectedSegment])
+  }, [hoveredSegment, selectedSegment, transitionSegment])
 
-  const isThemeActive = selectedSegment !== null || hoveredSegment !== null
+  const isTransitioning = transitionSegment !== null
+  const isThemeActive = isTransitioning || selectedSegment !== null || hoveredSegment !== null
 
   useEffect(() => {
     applyThemeToDocument(activeTheme)
   }, [activeTheme])
 
+  useEffect(() => {
+    return () => {
+      if (transitionTimeoutRef.current !== null) {
+        window.clearTimeout(transitionTimeoutRef.current)
+      }
+    }
+  }, [])
+
   function handleSegmentHover(segment: Segment) {
-    if (selectedSegment) {
+    if (selectedSegment || isTransitioning) {
       return
     }
 
@@ -35,7 +51,7 @@ function HomePage() {
   }
 
   function handleSegmentLeave() {
-    if (selectedSegment) {
+    if (selectedSegment || isTransitioning) {
       return
     }
 
@@ -43,13 +59,35 @@ function HomePage() {
   }
 
   function handleSegmentSelect(segment: Segment) {
+    if (isTransitioning) {
+      return
+    }
+
     setSelectedSegment(segment)
     setHoveredSegment(null)
   }
 
   function handleClearSelection() {
+    if (isTransitioning) {
+      return
+    }
+
     setSelectedSegment(null)
     setHoveredSegment(null)
+  }
+
+  function handleAccessCatalog(segment: Segment) {
+    if (isTransitioning) {
+      return
+    }
+
+    setSelectedSegment(segment)
+    setHoveredSegment(null)
+    setTransitionSegment(segment)
+
+    transitionTimeoutRef.current = window.setTimeout(() => {
+      navigate(segment.catalogPath)
+    }, TRANSITION_DURATION_MS)
   }
 
   return (
@@ -72,14 +110,21 @@ function HomePage() {
         <HomeHero theme={activeTheme} isActive={isThemeActive} />
         <SegmentCarousel
           selectedSegment={selectedSegment}
+          isTransitioning={isTransitioning}
           onSegmentHover={handleSegmentHover}
           onSegmentLeave={handleSegmentLeave}
           onSegmentSelect={handleSegmentSelect}
           onClearSelection={handleClearSelection}
+          onAccessCatalog={handleAccessCatalog}
         />
         <DifferentialsSection />
       </main>
       <HomeFooter theme={activeTheme} isActive={isThemeActive} />
+      <CatalogTransitionOverlay
+        segment={transitionSegment}
+        isActive={isTransitioning}
+        durationMs={TRANSITION_DURATION_MS}
+      />
     </div>
   )
 }

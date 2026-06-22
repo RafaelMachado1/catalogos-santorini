@@ -1,5 +1,4 @@
 import { ArrowRight, MessageCircle, Share2, X } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import type { CSSProperties, KeyboardEvent, MouseEvent } from 'react'
 import type { Segment } from '../../types/catalog'
 import { getThemeById } from '../../utils/theme'
@@ -12,10 +11,12 @@ type SegmentCarouselCardProps = {
   isDimmed: boolean
   isHovered: boolean
   isSelected: boolean
+  isTransitioning: boolean
   offset: number
   onHover: (segment: Segment) => void
   onSelect: (segment: Segment) => void
   onClose: () => void
+  onAccessCatalog: (segment: Segment) => void
 }
 
 function getCardLayerStyles(offset: number): CSSProperties {
@@ -79,10 +80,12 @@ function SegmentCarouselCard({
   isDimmed,
   isHovered,
   isSelected,
+  isTransitioning,
   offset,
   onHover,
   onSelect,
   onClose,
+  onAccessCatalog,
 }: SegmentCarouselCardProps) {
   const theme = getThemeById(segment.themeId)
   const style = {
@@ -97,7 +100,7 @@ function SegmentCarouselCard({
     '--card-muted': theme.muted,
     '--card-border': theme.border,
   } as CSSProperties
-  const canInteract = isFrontCard || isSelected
+  const canInteract = (isFrontCard || isSelected) && !isTransitioning
 
   function handleCardClick(event: MouseEvent<HTMLElement>) {
     event.stopPropagation()
@@ -128,7 +131,22 @@ function SegmentCarouselCard({
 
   function handleCloseClick(event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation()
+
+    if (isTransitioning) {
+      return
+    }
+
     onClose()
+  }
+
+  function handleAccessCatalogClick(event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation()
+
+    if (!canInteract) {
+      return
+    }
+
+    onAccessCatalog(segment)
   }
 
   return (
@@ -182,22 +200,22 @@ function SegmentCarouselCard({
       </div>
 
       <div className={styles.footer}>
-        <Link className={styles.action} to={segment.catalogPath} onClick={(event) => event.stopPropagation()}>
+        <button className={styles.action} type="button" onClick={handleAccessCatalogClick} disabled={isTransitioning}>
           Acessar Catálogo
           <ArrowRight size={16} />
-        </Link>
+        </button>
       </div>
 
       <div className={styles.expandedActions} aria-hidden={!isSelected}>
-        <Link className={styles.expandedAction} to={segment.catalogPath} onClick={(event) => event.stopPropagation()}>
+        <button className={styles.expandedAction} type="button" onClick={handleAccessCatalogClick} disabled={isTransitioning}>
           <ArrowRight size={16} />
           Acessar Catálogo
-        </Link>
-        <button className={styles.expandedAction} type="button" onClick={(event) => event.stopPropagation()}>
+        </button>
+        <button className={styles.expandedAction} type="button" onClick={(event) => event.stopPropagation()} disabled={isTransitioning}>
           <Share2 size={16} />
           Compartilhar Catálogo
         </button>
-        <button className={styles.expandedAction} type="button" onClick={(event) => event.stopPropagation()}>
+        <button className={styles.expandedAction} type="button" onClick={(event) => event.stopPropagation()} disabled={isTransitioning}>
           <MessageCircle size={16} />
           Falar com Consultor
         </button>

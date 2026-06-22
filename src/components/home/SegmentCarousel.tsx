@@ -9,18 +9,22 @@ const AUTOPLAY_DELAY_MS = 4500
 
 type SegmentCarouselProps = {
   selectedSegment: Segment | null
+  isTransitioning: boolean
   onSegmentHover: (segment: Segment) => void
   onSegmentLeave: () => void
   onSegmentSelect: (segment: Segment) => void
   onClearSelection: () => void
+  onAccessCatalog: (segment: Segment) => void
 }
 
 function SegmentCarousel({
   selectedSegment,
+  isTransitioning,
   onSegmentHover,
   onSegmentLeave,
   onSegmentSelect,
   onClearSelection,
+  onAccessCatalog,
 }: SegmentCarouselProps) {
   const segments = useMemo(() => getAllSegments(), [])
   const [activeIndex, setActiveIndex] = useState(0)
@@ -33,7 +37,7 @@ function SegmentCarousel({
   const displayIndex = selectedIndex >= 0 ? selectedIndex : activeIndex
 
   useEffect(() => {
-    if (isPaused || selectedSegment || segments.length <= 1) {
+    if (isPaused || selectedSegment || isTransitioning || segments.length <= 1) {
       return
     }
 
@@ -42,10 +46,10 @@ function SegmentCarousel({
     }, AUTOPLAY_DELAY_MS)
 
     return () => window.clearInterval(intervalId)
-  }, [isPaused, selectedSegment, segments.length])
+  }, [isPaused, isTransitioning, selectedSegment, segments.length])
 
   useEffect(() => {
-    if (!selectedSegment) {
+    if (!selectedSegment || isTransitioning) {
       return
     }
 
@@ -78,10 +82,10 @@ function SegmentCarousel({
       window.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('pointerdown', handlePointerDown)
     }
-  }, [handleClearSelection, selectedSegment])
+  }, [handleClearSelection, isTransitioning, selectedSegment])
 
   function goToPrevious() {
-    if (selectedSegment) {
+    if (selectedSegment || isTransitioning) {
       return
     }
 
@@ -89,7 +93,7 @@ function SegmentCarousel({
   }
 
   function goToNext() {
-    if (selectedSegment) {
+    if (selectedSegment || isTransitioning) {
       return
     }
 
@@ -97,7 +101,7 @@ function SegmentCarousel({
   }
 
   function handleSegmentHover(segment: Segment) {
-    if (selectedSegment) {
+    if (selectedSegment || isTransitioning) {
       return
     }
 
@@ -107,7 +111,7 @@ function SegmentCarousel({
   }
 
   function handleSegmentLeave() {
-    if (selectedSegment) {
+    if (selectedSegment || isTransitioning) {
       return
     }
 
@@ -117,6 +121,10 @@ function SegmentCarousel({
   }
 
   function handleSegmentSelect(segment: Segment) {
+    if (isTransitioning) {
+      return
+    }
+
     const nextIndex = segments.findIndex((item) => item.id === segment.id)
 
     if (nextIndex >= 0) {
@@ -129,6 +137,10 @@ function SegmentCarousel({
   }
 
   function handleClearSelection() {
+    if (isTransitioning) {
+      return
+    }
+
     setHoveredSegmentId(null)
     setIsPaused(false)
     onClearSelection()
@@ -147,6 +159,7 @@ function SegmentCarousel({
       <div
         className={styles.carousel}
         data-selected={selectedSegment ? 'true' : 'false'}
+        data-transitioning={isTransitioning ? 'true' : 'false'}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={handleSegmentLeave}
       >
@@ -169,10 +182,12 @@ function SegmentCarousel({
                 isDimmed={(selectedSegment !== null && !isSelected) || (hasHover && hoveredSegmentId !== segment.id)}
                 isHovered={isFrontCard && hoveredSegmentId === segment.id}
                 isSelected={isSelected}
+                isTransitioning={isTransitioning}
                 offset={wrappedOffset}
                 onHover={handleSegmentHover}
                 onSelect={handleSegmentSelect}
                 onClose={handleClearSelection}
+                onAccessCatalog={onAccessCatalog}
               />
             )
           })}
@@ -187,7 +202,7 @@ function SegmentCarousel({
               event.stopPropagation()
               goToPrevious()
             }}
-            disabled={Boolean(selectedSegment)}
+            disabled={Boolean(selectedSegment) || isTransitioning}
           >
             <ChevronLeft size={18} />
           </button>
@@ -199,7 +214,7 @@ function SegmentCarousel({
               event.stopPropagation()
               goToNext()
             }}
-            disabled={Boolean(selectedSegment)}
+            disabled={Boolean(selectedSegment) || isTransitioning}
           >
             <ChevronRight size={18} />
           </button>
