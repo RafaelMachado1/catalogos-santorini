@@ -1,8 +1,25 @@
+import type { CSSProperties } from 'react'
+import type { ThemeDefinition } from '../../types/theme'
 import styles from './HomeFooter.module.css'
 
-function HomeFooter() {
+type HomeFooterProps = {
+  theme: ThemeDefinition
+}
+
+function HomeFooter({ theme }: HomeFooterProps) {
+  const style = {
+    '--footer-primary': theme.primary,
+    '--footer-accent': theme.accent,
+    '--footer-surface': theme.surface,
+    '--footer-surface-alt': theme.surfaceAlt,
+    '--footer-text': theme.text,
+    '--footer-muted': theme.muted,
+    '--footer-border': theme.border,
+    '--footer-glow': theme.glow,
+  } as CSSProperties
+
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} style={style}>
       <div className={styles.inner}>
         <div className={styles.brandBlock}>
           <p className={styles.brand}>Santorini</p>

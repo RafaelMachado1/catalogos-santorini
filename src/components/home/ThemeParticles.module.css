@@ -1,0 +1,43 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: var(--particle-opacity);
+  transition: opacity 700ms ease;
+}
+
+.particle {
+  position: absolute;
+  top: var(--particle-top);
+  left: var(--particle-left);
+  width: var(--particle-size);
+  height: var(--particle-size);
+  border-radius: 999px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--particle-accent) 58%, white 42%), var(--particle-primary));
+  box-shadow:
+    0 0 24px color-mix(in srgb, var(--particle-accent) 24%, transparent),
+    0 0 48px color-mix(in srgb, var(--particle-glow) 30%, transparent);
+  opacity: 0.22;
+  transform: translate3d(0, 0, 0) scale(0.75);
+  animation: float 10s ease-in-out infinite;
+  animation-delay: var(--particle-delay);
+  animation-duration: var(--particle-duration);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.75);
+  }
+
+  50% {
+    transform: translate3d(0, -14px, 0) scale(1);
+  }
+}
+
+@media (max-width: 720px) {
+  .layer {
+    opacity: calc(var(--particle-opacity) * 0.8);
+  }
+}

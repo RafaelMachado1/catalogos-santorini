@@ -8,7 +8,9 @@ import styles from './SegmentCarouselCard.module.css'
 type SegmentCarouselCardProps = {
   segment: Segment
   isActive: boolean
+  isHovered: boolean
   offset: number
+  onHover: (segment: Segment) => void
 }
 
 function getCardLayerStyles(offset: number): CSSProperties {
@@ -22,6 +24,9 @@ function getCardLayerStyles(offset: number): CSSProperties {
       '--card-blur': '0px',
       '--card-z': '4',
       '--card-pointer': 'auto',
+      '--card-hover-scale': '1.1',
+      '--card-hover-z': '8',
+      '--card-hover-glow': '1',
     } as CSSProperties
   }
 
@@ -33,6 +38,9 @@ function getCardLayerStyles(offset: number): CSSProperties {
       '--card-blur': '0.5px',
       '--card-z': '3',
       '--card-pointer': 'none',
+      '--card-hover-scale': '0.92',
+      '--card-hover-z': '4',
+      '--card-hover-glow': '0.55',
     } as CSSProperties
   }
 
@@ -44,6 +52,9 @@ function getCardLayerStyles(offset: number): CSSProperties {
       '--card-blur': '1px',
       '--card-z': '2',
       '--card-pointer': 'none',
+      '--card-hover-scale': '0.82',
+      '--card-hover-z': '3',
+      '--card-hover-glow': '0.45',
     } as CSSProperties
   }
 
@@ -54,10 +65,19 @@ function getCardLayerStyles(offset: number): CSSProperties {
     '--card-blur': '2px',
     '--card-z': '1',
     '--card-pointer': 'none',
+    '--card-hover-scale': '0.72',
+    '--card-hover-z': '1',
+    '--card-hover-glow': '0',
   } as CSSProperties
 }
 
-function SegmentCarouselCard({ segment, isActive, offset }: SegmentCarouselCardProps) {
+function SegmentCarouselCard({
+  segment,
+  isActive,
+  isHovered,
+  offset,
+  onHover,
+}: SegmentCarouselCardProps) {
   const theme = getThemeById(segment.themeId)
   const style = {
     ...getCardLayerStyles(offset),
@@ -77,7 +97,11 @@ function SegmentCarouselCard({ segment, isActive, offset }: SegmentCarouselCardP
       className={styles.card}
       style={style}
       data-active={isActive ? 'true' : 'false'}
+      data-hovered={isHovered ? 'true' : 'false'}
       aria-hidden={!isActive && Math.abs(offset) > 2}
+      onMouseEnter={() => onHover(segment)}
+      onFocus={() => onHover(segment)}
+      tabIndex={0}
     >
       <div className={styles.visual}>
         <span className={styles.badge}>{theme.name}</span>

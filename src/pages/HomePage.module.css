@@ -1,11 +1,39 @@
 .page {
+  position: relative;
   display: grid;
   gap: 28px;
   max-width: var(--container-lg);
   margin: 0 auto;
+  padding-bottom: 8px;
+  transition:
+    background 700ms ease,
+    color 700ms ease;
+}
+
+.page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 12%, color-mix(in srgb, var(--theme-active-glow) 32%, transparent), transparent 24%),
+    radial-gradient(circle at 85% 18%, color-mix(in srgb, var(--theme-active-accent) 10%, transparent), transparent 22%),
+    radial-gradient(circle at 50% 80%, color-mix(in srgb, var(--theme-active-primary) 7%, transparent), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 244, 237, 0.9));
+  opacity: 1;
+  transition:
+    opacity 700ms ease,
+    background 700ms ease;
+}
+
+.page[data-theme-active='home']::before {
+  opacity: 1;
 }
 
 .main {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 34px;
 }

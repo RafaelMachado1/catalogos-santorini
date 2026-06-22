@@ -26,7 +26,8 @@
     transform 420ms ease,
     opacity 420ms ease,
     filter 420ms ease,
-    box-shadow 420ms ease;
+    box-shadow 420ms ease,
+    z-index 420ms ease;
 }
 
 .card::before {
@@ -35,12 +36,27 @@
   inset: 0;
   background: radial-gradient(circle at top right, var(--card-glow), transparent 42%);
   pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 700ms ease, transform 700ms ease;
 }
 
 .card[data-active='true'] {
   opacity: 1;
   filter: blur(0);
   box-shadow: 0 32px 80px color-mix(in srgb, var(--card-primary) 18%, transparent);
+}
+
+.card[data-hovered='true'] {
+  transform:
+    translate(-50%, -50%)
+    translateX(var(--card-x))
+    scale(var(--card-hover-scale));
+  z-index: var(--card-hover-z);
+  box-shadow: 0 38px 96px color-mix(in srgb, var(--card-primary) 20%, transparent);
+}
+
+.card[data-hovered='true']::before {
+  opacity: 1;
 }
 
 .visual {
@@ -174,5 +190,9 @@
   .card[data-active='true'] {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  .card[data-hovered='true'] {
+    transform: translate(-50%, -50%) scale(1.04);
   }
 }

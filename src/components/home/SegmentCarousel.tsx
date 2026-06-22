@@ -1,15 +1,22 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import type { Segment } from '../../types/catalog'
 import { getAllSegments } from '../../utils/segments'
 import SegmentCarouselCard from './SegmentCarouselCard'
 import styles from './SegmentCarousel.module.css'
 
 const AUTOPLAY_DELAY_MS = 4500
 
-function SegmentCarousel() {
+type SegmentCarouselProps = {
+  onSegmentHover: (segment: Segment) => void
+  onSegmentLeave: () => void
+}
+
+function SegmentCarousel({ onSegmentHover, onSegmentLeave }: SegmentCarouselProps) {
   const segments = useMemo(() => getAllSegments(), [])
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [hoveredSegmentId, setHoveredSegmentId] = useState<string | null>(null)
 
   useEffect(() => {
     if (isPaused || segments.length <= 1) {
@@ -31,33 +38,48 @@ function SegmentCarousel() {
     setActiveIndex((currentIndex) => (currentIndex + 1) % segments.length)
   }
 
+  function handleSegmentHover(segment: Segment) {
+    setHoveredSegmentId(segment.id)
+    setIsPaused(true)
+    onSegmentHover(segment)
+  }
+
+  function handleSegmentLeave() {
+    setHoveredSegmentId(null)
+    setIsPaused(false)
+    onSegmentLeave()
+  }
+
   return (
     <section id="segmentos" className={styles.section}>
       <div className={styles.header}>
         <p className={styles.eyebrow}>Segmentos</p>
         <h2 className={styles.title}>Prévia dos 13 segmentos oficiais</h2>
         <p className={styles.subtitle}>
-          Carrossel visual com profundidade suave, navegação acessível e transição automática controlada.
+          Carrossel visual com profundidade suave, navegação acessível, autoplay e resposta ao hover do segmento.
         </p>
       </div>
 
       <div
         className={styles.carousel}
         onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseLeave={handleSegmentLeave}
       >
         <div className={styles.track}>
           {segments.map((segment, index) => {
             const total = segments.length
             const rawOffset = index - activeIndex
-            const wrappedOffset = rawOffset > total / 2 ? rawOffset - total : rawOffset < -total / 2 ? rawOffset + total : rawOffset
+            const wrappedOffset =
+              rawOffset > total / 2 ? rawOffset - total : rawOffset < -total / 2 ? rawOffset + total : rawOffset
 
             return (
               <SegmentCarouselCard
                 key={segment.id}
                 segment={segment}
                 isActive={index === activeIndex}
+                isHovered={hoveredSegmentId === segment.id}
                 offset={wrappedOffset}
+                onHover={handleSegmentHover}
               />
             )
           })}

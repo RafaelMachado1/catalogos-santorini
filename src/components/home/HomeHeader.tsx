@@ -1,9 +1,26 @@
 import { Camera, Globe, Share2 } from 'lucide-react'
+import type { CSSProperties } from 'react'
+import type { ThemeDefinition } from '../../types/theme'
 import styles from './HomeHeader.module.css'
 
-function HomeHeader() {
+type HomeHeaderProps = {
+  theme: ThemeDefinition
+}
+
+function HomeHeader({ theme }: HomeHeaderProps) {
+  const style = {
+    '--header-primary': theme.primary,
+    '--header-accent': theme.accent,
+    '--header-surface': theme.surface,
+    '--header-surface-alt': theme.surfaceAlt,
+    '--header-text': theme.text,
+    '--header-muted': theme.muted,
+    '--header-border': theme.border,
+    '--header-glow': theme.glow,
+  } as CSSProperties
+
   return (
-    <header className={styles.header}>
+    <header className={styles.header} style={style}>
       <div className={styles.inner}>
         <div className={styles.brand}>
           <span className={styles.brandMark} aria-hidden="true">
