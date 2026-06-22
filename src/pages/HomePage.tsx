@@ -13,17 +13,44 @@ import styles from './HomePage.module.css'
 
 function HomePage() {
   const [hoveredSegment, setHoveredSegment] = useState<Segment | null>(null)
+  const [selectedSegment, setSelectedSegment] = useState<Segment | null>(null)
 
-  const activeTheme = useMemo(
-    () => (hoveredSegment ? getThemeById(hoveredSegment.themeId) : homeTheme),
-    [hoveredSegment]
-  )
+  const activeTheme = useMemo(() => {
+    const activeSegment = selectedSegment ?? hoveredSegment
+    return activeSegment ? getThemeById(activeSegment.themeId) : homeTheme
+  }, [hoveredSegment, selectedSegment])
 
-  const isThemeActive = hoveredSegment !== null
+  const isThemeActive = selectedSegment !== null || hoveredSegment !== null
 
   useEffect(() => {
     applyThemeToDocument(activeTheme)
   }, [activeTheme])
+
+  function handleSegmentHover(segment: Segment) {
+    if (selectedSegment) {
+      return
+    }
+
+    setHoveredSegment(segment)
+  }
+
+  function handleSegmentLeave() {
+    if (selectedSegment) {
+      return
+    }
+
+    setHoveredSegment(null)
+  }
+
+  function handleSegmentSelect(segment: Segment) {
+    setSelectedSegment(segment)
+    setHoveredSegment(null)
+  }
+
+  function handleClearSelection() {
+    setSelectedSegment(null)
+    setHoveredSegment(null)
+  }
 
   return (
     <div
@@ -44,8 +71,11 @@ function HomePage() {
       <main className={styles.main}>
         <HomeHero theme={activeTheme} isActive={isThemeActive} />
         <SegmentCarousel
-          onSegmentHover={setHoveredSegment}
-          onSegmentLeave={() => setHoveredSegment(null)}
+          selectedSegment={selectedSegment}
+          onSegmentHover={handleSegmentHover}
+          onSegmentLeave={handleSegmentLeave}
+          onSegmentSelect={handleSegmentSelect}
+          onClearSelection={handleClearSelection}
         />
         <DifferentialsSection />
       </main>

@@ -11,6 +11,7 @@
   filter: blur(var(--card-blur));
   z-index: var(--card-z);
   pointer-events: var(--card-pointer);
+  cursor: pointer;
   display: grid;
   gap: 16px;
   min-height: 100%;
@@ -23,6 +24,8 @@
   box-shadow: 0 20px 54px color-mix(in srgb, var(--card-primary) 12%, transparent);
   overflow: hidden;
   transition:
+    width 420ms ease,
+    min-height 420ms ease,
     transform 420ms ease,
     opacity 420ms ease,
     filter 420ms ease,
@@ -59,7 +62,7 @@
   opacity: 0.62;
 }
 
-.card[data-hovered='true'] {
+.card[data-hovered='true'][data-front='true'] {
   transform:
     translate(-50%, -50%)
     translateX(var(--card-x))
@@ -74,13 +77,74 @@
     0 0 0 1px color-mix(in srgb, var(--card-primary) 22%, transparent) inset;
 }
 
-.card[data-hovered='true']::before {
+.card[data-hovered='true'][data-front='true']::before {
   opacity: 0.82;
 }
 
+.card[data-selected='true'] {
+  width: min(70vw, 860px);
+  min-height: 420px;
+  transform: translate(-50%, -50%) scale(1.06);
+  opacity: 1;
+  filter: blur(0);
+  z-index: 12;
+  pointer-events: auto;
+  cursor: default;
+  border-color: color-mix(in srgb, var(--card-primary) 66%, white 34%);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 1), color-mix(in srgb, var(--card-surface) 92%, white 8%)),
+    var(--card-gradient);
+  box-shadow:
+    0 58px 150px color-mix(in srgb, var(--card-primary) 36%, transparent),
+    0 0 58px color-mix(in srgb, var(--card-glow) 56%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--card-primary) 24%, transparent) inset;
+}
+
+.card[data-selected='true']::before {
+  opacity: 0.92;
+  transform: scale(1.08);
+}
+
+.card[data-front='false'] {
+  cursor: default;
+}
+
 .card[data-dimmed='true'] {
-  opacity: max(0.58, calc(var(--card-opacity) * 0.9));
-  filter: blur(min(2px, calc(var(--card-blur) + 0.5px)));
+  opacity: 0.58;
+  filter: blur(1.5px);
+  pointer-events: none;
+}
+
+.card[data-active='true'],
+.card[data-selected='true'] {
+  opacity: 1;
+  filter: blur(0);
+  pointer-events: auto;
+}
+
+.card[data-selected='true'] {
+  z-index: 12;
+}
+
+.closeButton {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 3;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid color-mix(in srgb, var(--card-primary) 26%, white 74%);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--card-primary);
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--card-primary) 12%, transparent);
+}
+
+.card[data-selected='true'] .closeButton {
+  display: inline-flex;
 }
 
 .visual {
@@ -90,6 +154,7 @@
   gap: 12px;
   align-items: flex-start;
   z-index: 1;
+  padding-right: 42px;
 }
 
 .badge {
@@ -111,7 +176,8 @@
 }
 
 .body,
-.footer {
+.footer,
+.expandedActions {
   position: relative;
   z-index: 1;
 }
@@ -119,6 +185,11 @@
 .body {
   display: grid;
   gap: 10px;
+  max-width: 680px;
+}
+
+.card[data-selected='true'] .body {
+  max-width: 760px;
 }
 
 .title {
@@ -126,6 +197,10 @@
   color: var(--card-text);
   font-size: clamp(1.2rem, 2vw, 1.45rem);
   line-height: 1.12;
+}
+
+.card[data-selected='true'] .title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
 }
 
 .subtitle {
@@ -177,9 +252,15 @@
   margin-top: auto;
 }
 
-.action {
+.card[data-selected='true'] .footer {
+  display: none;
+}
+
+.action,
+.expandedAction {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 11px 14px;
   border-radius: var(--radius-pill);
@@ -187,12 +268,52 @@
   color: #fff;
   text-decoration: none;
   font-weight: var(--font-weight-bold);
+  border: 0;
   box-shadow: 0 14px 28px color-mix(in srgb, var(--card-primary) 18%, transparent);
+}
+
+.expandedActions {
+  display: none;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.card[data-selected='true'] .expandedActions {
+  display: flex;
+}
+
+.expandedAction {
+  min-height: 46px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: ctaIn 420ms ease forwards;
+}
+
+.expandedAction:nth-child(2) {
+  animation-delay: 90ms;
+  background: color-mix(in srgb, var(--card-primary) 88%, white 12%);
+}
+
+.expandedAction:nth-child(3) {
+  animation-delay: 180ms;
+  background: color-mix(in srgb, var(--card-primary) 78%, black 22%);
+}
+
+@keyframes ctaIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1024px) {
   .card {
     width: min(100%, 640px);
+  }
+
+  .card[data-selected='true'] {
+    width: min(92vw, 760px);
   }
 }
 
@@ -210,7 +331,21 @@
     pointer-events: auto;
   }
 
-  .card[data-hovered='true'] {
-    transform: translate(-50%, -50%) scale(1.06);
+  .card[data-hovered='true'][data-front='true'] {
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+
+  .card[data-selected='true'] {
+    width: min(100%, 100%);
+    min-height: 460px;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .expandedActions {
+    flex-direction: column;
+  }
+
+  .expandedAction {
+    width: 100%;
   }
 }

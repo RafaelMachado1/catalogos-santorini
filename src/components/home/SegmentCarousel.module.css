@@ -31,7 +31,6 @@
   color: var(--theme-active-muted);
   line-height: 1.65;
 }
-
 .carousel {
   position: relative;
   z-index: 3;
@@ -39,10 +38,18 @@
   padding: 8px 0 72px;
 }
 
+.carousel[data-selected='true'] {
+  min-height: 640px;
+}
+
 .track {
   position: relative;
   z-index: 2;
   min-height: 480px;
+}
+
+.carousel[data-selected='true'] .track {
+  min-height: 560px;
 }
 
 .controls {
@@ -72,23 +79,38 @@
   border-color: color-mix(in srgb, var(--theme-active-primary) 24%, var(--theme-active-border));
 }
 
+.controlButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
 @media (max-width: 1024px) {
   .carousel {
     min-height: 520px;
   }
 
+  .carousel[data-selected='true'] {
+    min-height: 620px;
+  }
+
   .track {
     min-height: 440px;
+  }
+
+  .carousel[data-selected='true'] .track {
+    min-height: 540px;
   }
 }
 
 @media (max-width: 720px) {
-  .carousel {
-    min-height: 500px;
+  .carousel,
+  .carousel[data-selected='true'] {
+    min-height: 620px;
   }
 
-  .track {
-    min-height: 420px;
+  .track,
+  .carousel[data-selected='true'] .track {
+    min-height: 540px;
   }
 
   .controls {

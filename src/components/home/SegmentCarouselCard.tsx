@@ -1,6 +1,6 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, MessageCircle, Share2, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import type { CSSProperties } from 'react'
+import type { CSSProperties, KeyboardEvent, MouseEvent } from 'react'
 import type { Segment } from '../../types/catalog'
 import { getThemeById } from '../../utils/theme'
 import styles from './SegmentCarouselCard.module.css'
@@ -8,10 +8,14 @@ import styles from './SegmentCarouselCard.module.css'
 type SegmentCarouselCardProps = {
   segment: Segment
   isActive: boolean
+  isFrontCard: boolean
   isDimmed: boolean
   isHovered: boolean
+  isSelected: boolean
   offset: number
   onHover: (segment: Segment) => void
+  onSelect: (segment: Segment) => void
+  onClose: () => void
 }
 
 function getCardLayerStyles(offset: number): CSSProperties {
@@ -71,10 +75,14 @@ function getCardLayerStyles(offset: number): CSSProperties {
 function SegmentCarouselCard({
   segment,
   isActive,
+  isFrontCard,
   isDimmed,
   isHovered,
+  isSelected,
   offset,
   onHover,
+  onSelect,
+  onClose,
 }: SegmentCarouselCardProps) {
   const theme = getThemeById(segment.themeId)
   const style = {
@@ -89,19 +97,67 @@ function SegmentCarouselCard({
     '--card-muted': theme.muted,
     '--card-border': theme.border,
   } as CSSProperties
+  const canInteract = isFrontCard || isSelected
+
+  function handleCardClick(event: MouseEvent<HTMLElement>) {
+    event.stopPropagation()
+
+    if (!canInteract) {
+      return
+    }
+
+    onSelect(segment)
+  }
+
+  function handleCardKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (!canInteract || (event.key !== 'Enter' && event.key !== ' ')) {
+      return
+    }
+
+    event.preventDefault()
+    onSelect(segment)
+  }
+
+  function handleCardHover() {
+    if (!isFrontCard || isSelected) {
+      return
+    }
+
+    onHover(segment)
+  }
+
+  function handleCloseClick(event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation()
+    onClose()
+  }
 
   return (
     <article
       className={styles.card}
       style={style}
+      data-carousel-card="true"
       data-active={isActive ? 'true' : 'false'}
+      data-front={isFrontCard ? 'true' : 'false'}
       data-dimmed={isDimmed ? 'true' : 'false'}
       data-hovered={isHovered ? 'true' : 'false'}
+      data-selected={isSelected ? 'true' : 'false'}
+      aria-current={isSelected ? 'true' : undefined}
       aria-hidden={!isActive && Math.abs(offset) > 2}
-      onMouseEnter={() => onHover(segment)}
-      onFocus={() => onHover(segment)}
-      tabIndex={0}
+      onClick={handleCardClick}
+      onMouseEnter={handleCardHover}
+      onFocus={handleCardHover}
+      onKeyDown={handleCardKeyDown}
+      tabIndex={canInteract && !isDimmed && Math.abs(offset) <= 2 ? 0 : -1}
     >
+      <button
+        className={styles.closeButton}
+        type="button"
+        aria-label="Fechar segmento selecionado"
+        onClick={handleCloseClick}
+      >
+        <X size={18} />
+      </button>
+
       <div className={styles.visual}>
         <span className={styles.badge}>{theme.name}</span>
         <span className={styles.slug}>/{segment.slug}</span>
@@ -126,10 +182,25 @@ function SegmentCarouselCard({
       </div>
 
       <div className={styles.footer}>
-        <Link className={styles.action} to={segment.catalogPath}>
-          Acessar catalogo
+        <Link className={styles.action} to={segment.catalogPath} onClick={(event) => event.stopPropagation()}>
+          Acessar Catálogo
           <ArrowRight size={16} />
         </Link>
+      </div>
+
+      <div className={styles.expandedActions} aria-hidden={!isSelected}>
+        <Link className={styles.expandedAction} to={segment.catalogPath} onClick={(event) => event.stopPropagation()}>
+          <ArrowRight size={16} />
+          Acessar Catálogo
+        </Link>
+        <button className={styles.expandedAction} type="button" onClick={(event) => event.stopPropagation()}>
+          <Share2 size={16} />
+          Compartilhar Catálogo
+        </button>
+        <button className={styles.expandedAction} type="button" onClick={(event) => event.stopPropagation()}>
+          <MessageCircle size={16} />
+          Falar com Consultor
+        </button>
       </div>
     </article>
   )
