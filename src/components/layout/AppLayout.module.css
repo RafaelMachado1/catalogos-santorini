@@ -1,0 +1,62 @@
+.shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(193, 153, 106, 0.16), transparent 32%),
+    radial-gradient(circle at top right, rgba(34, 37, 43, 0.08), transparent 28%),
+    var(--color-background);
+}
+
+.header {
+  padding: 24px clamp(20px, 4vw, 48px) 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-sm);
+}
+
+.brandIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--color-surface-alt);
+  color: var(--color-accent);
+  flex: 0 0 auto;
+}
+
+.kicker {
+  margin: 0 0 2px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.brandLink {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.brandLink:hover,
+.brandLink:focus-visible {
+  color: var(--color-heading);
+}
+
+.main {
+  padding: 28px clamp(20px, 4vw, 48px) 56px;
+}

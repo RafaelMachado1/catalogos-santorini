@@ -1,0 +1,38 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 100%;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.badge {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  color: var(--color-heading);
+}
+
+.description {
+  margin: 0;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 4px;
+}
