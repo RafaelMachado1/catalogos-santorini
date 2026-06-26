@@ -35,24 +35,24 @@
   gap: 12px;
   min-height: 52px;
   padding: 0 clamp(26px, 5vw, 46px);
-  border: 1px solid color-mix(in srgb, var(--cta-accent) 38%, white 62%);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: var(--radius-pill);
   background:
-    linear-gradient(135deg, var(--cta-accent), color-mix(in srgb, var(--cta-primary) 78%, var(--cta-accent) 22%));
+    linear-gradient(135deg, color-mix(in srgb, var(--cta-primary) 76%, #eb532c) 0%, color-mix(in srgb, var(--cta-accent) 62%, #eb532c) 100%);
   color: #fff;
   font: inherit;
   font-size: 1rem;
   font-weight: var(--font-weight-bold);
   cursor: pointer;
   box-shadow:
-    0 24px 58px color-mix(in srgb, var(--cta-accent) 28%, transparent),
-    0 0 42px color-mix(in srgb, var(--cta-glow) 72%, transparent),
-    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    0 16px 38px color-mix(in srgb, var(--cta-primary) 28%, rgba(235, 83, 44, 0.26)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
   transition:
-    transform 350ms ease,
-    box-shadow 700ms ease,
-    background 700ms ease,
-    border-color 700ms ease;
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
 }
 
 .button::before {
@@ -66,17 +66,12 @@
 
 .button:hover,
 .button:focus-visible {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.025);
+  filter: saturate(1.12) brightness(1.04);
   box-shadow:
-    0 30px 72px color-mix(in srgb, var(--cta-accent) 34%, transparent),
-    0 0 56px color-mix(in srgb, var(--cta-glow) 82%, transparent),
-    0 0 0 1px rgba(255, 255, 255, 0.24) inset;
-}
-
-.section[data-active='true'] .button {
-  border-color: color-mix(in srgb, var(--cta-primary) 48%, white 52%);
-  background:
-    linear-gradient(135deg, var(--cta-primary), color-mix(in srgb, var(--cta-accent) 76%, var(--cta-primary) 24%));
+    0 24px 58px color-mix(in srgb, var(--cta-primary) 38%, rgba(235, 83, 44, 0.34)),
+    0 0 0 6px rgba(235, 83, 44, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34);
 }
 
 @media (max-width: 640px) {

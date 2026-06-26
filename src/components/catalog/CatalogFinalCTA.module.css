@@ -1,0 +1,43 @@
+.cta {
+  display: flex;
+  justify-content: center;
+  padding: clamp(8px, 2vw, 16px) 0;
+}
+
+.cta button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 15px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0f7c8c 0%, #16a6bb 58%, #087081 100%);
+  color: #fff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 18px 42px rgba(15, 124, 140, 0.32),
+    0 0 0 6px rgba(43, 188, 211, 0.1);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.cta button:hover {
+  filter: saturate(1.08);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow:
+    0 26px 54px rgba(15, 124, 140, 0.42),
+    0 0 0 10px rgba(43, 188, 211, 0.16);
+}
+
+.cta button:focus-visible {
+  outline: 3px solid rgba(43, 188, 211, 0.5);
+  outline-offset: 4px;
+}

@@ -1,122 +1,147 @@
 .footer {
-  padding: 12px 0 0;
-  transition:
-    border-color 700ms ease,
-    box-shadow 700ms ease,
-    background-color 700ms ease;
-}
-
-.footer::before {
-  content: '';
-  display: block;
-  height: 1px;
-  margin-bottom: -1px;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--footer-glow) 92%, white 8%), transparent);
-  opacity: 0.82;
-  transition: opacity 700ms ease;
-}
-
-.footer[data-active='true']::before {
-  opacity: 1;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  width: 100%;
+  min-height: 78px;
+  margin: 0;
+  flex-shrink: 0;
+  padding: 14px clamp(24px, 5vw, 72px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 88% 20%, color-mix(in srgb, var(--footer-primary) 28%, transparent), transparent 36%),
+    linear-gradient(135deg, color-mix(in srgb, var(--footer-primary) 82%, #eb532c) 0%, color-mix(in srgb, var(--footer-accent) 74%, #eb532c) 58%, color-mix(in srgb, var(--footer-primary) 62%, #9f3518) 100%);
+  color: #fff;
+  box-shadow: 0 -18px 52px color-mix(in srgb, var(--footer-primary) 30%, rgba(235, 83, 44, 0.22));
 }
 
 .inner {
-  display: grid;
-  gap: 18px;
-  padding: 22px 24px;
-  border: 1px solid color-mix(in srgb, var(--footer-border) 92%, white 8%);
-  border-top-color: color-mix(in srgb, var(--footer-border) 66%, white 34%);
-  border-radius: var(--radius-xl);
-  background: color-mix(in srgb, var(--footer-surface) 72%, white 28%);
-  backdrop-filter: var(--glass-backdrop);
-  box-shadow:
-    0 14px 30px rgba(32, 23, 17, 0.06),
-    0 0 0 1px color-mix(in srgb, var(--footer-glow) 16%, transparent) inset;
-  transition:
-    border-color 700ms ease,
-    box-shadow 700ms ease,
-    background 700ms ease;
-}
-
-.footer[data-active='true'] .inner {
-  border-color: color-mix(in srgb, var(--footer-primary) 28%, var(--footer-border));
-  box-shadow:
-    0 18px 42px color-mix(in srgb, var(--footer-primary) 12%, transparent),
-    0 0 28px color-mix(in srgb, var(--footer-glow) 30%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--footer-primary) 14%, transparent) inset;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(18px, 3vw, 40px);
+  width: min(100%, 1180px);
+  margin: 0 auto;
 }
 
 .brandBlock {
-  display: grid;
-  gap: 8px;
-}
-
-.brand {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--footer-text);
-  transition: color 700ms ease;
-}
-
-.footer[data-active='true'] .brand {
-  color: color-mix(in srgb, var(--footer-text) 82%, var(--footer-primary) 18%);
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .copy {
+  max-width: 520px;
   margin: 0;
-  color: var(--footer-muted);
-  line-height: 1.65;
-  max-width: 70ch;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(0.9rem, 0.95vw, 1rem);
+  font-weight: 500;
+  line-height: 1.35;
 }
 
-.links {
+.actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex: 0 0 auto;
 }
 
-.links a {
-  padding: 10px 14px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.84);
+.actionButton {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 17px;
+  border: 1px solid color-mix(in srgb, var(--footer-primary) 32%, rgba(255, 255, 255, 0.42));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: color-mix(in srgb, var(--footer-primary) 78%, #eb532c);
+  font: inherit;
+  font-weight: 800;
   text-decoration: none;
-  color: var(--footer-text);
-  font-weight: var(--font-weight-semibold);
-  border: 1px solid color-mix(in srgb, var(--footer-border) 78%, white 22%);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  cursor: pointer;
   transition:
-    border-color 700ms ease,
-    color 700ms ease,
-    box-shadow 700ms ease,
-    background 700ms ease,
-    transform 700ms ease;
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
-.footer[data-active='true'] .links a {
-  border-color: color-mix(in srgb, var(--footer-primary) 24%, var(--footer-border));
+.actionButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--footer-primary) 22%, transparent), rgba(235, 83, 44, 0.16));
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.actionButton > * {
+  position: relative;
+  z-index: 1;
+}
+
+.actionButton:hover,
+.actionButton:focus-visible {
+  background: #fff;
+  color: var(--footer-primary);
+  border-color: color-mix(in srgb, var(--footer-primary) 58%, rgba(255, 255, 255, 0.42));
   box-shadow:
-    0 10px 22px color-mix(in srgb, var(--footer-primary) 8%, transparent),
-    0 0 18px color-mix(in srgb, var(--footer-glow) 24%, transparent);
+    0 20px 44px color-mix(in srgb, var(--footer-primary) 26%, rgba(0, 0, 0, 0.18)),
+    0 0 0 5px color-mix(in srgb, var(--footer-primary) 14%, transparent);
+  transform: translateY(-3px) scale(1.025);
 }
 
-.links a:hover,
-.links a:focus-visible {
-  border-color: color-mix(in srgb, var(--footer-primary) 42%, var(--footer-border));
-  box-shadow:
-    0 12px 24px color-mix(in srgb, var(--footer-primary) 10%, transparent),
-    0 0 18px color-mix(in srgb, var(--footer-glow) 30%, transparent);
-  transform: translateY(-1px);
+.actionButton:hover::before,
+.actionButton:focus-visible::before {
+  opacity: 1;
 }
 
-.meta {
-  display: grid;
-  gap: 4px;
-  color: var(--footer-muted);
-  font-size: 0.92rem;
-}
+@media (max-width: 720px) {
+  .footer {
+    position: static;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: auto;
+    width: 100%;
+    min-height: auto;
+    margin-top: 24px;
+    padding: 24px 18px 30px;
+  }
 
-.meta p {
-  margin: 0;
+  .inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .brandBlock {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .actionButton {
+    width: 100%;
+  }
 }

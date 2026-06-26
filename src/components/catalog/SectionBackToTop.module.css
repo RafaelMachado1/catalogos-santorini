@@ -1,0 +1,52 @@
+.backToTop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: clamp(18px, 3vw, 28px) auto 0;
+  padding: 10px 16px;
+  border: 1px solid rgba(15, 124, 140, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--theme-active-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 12px 26px rgba(15, 124, 140, 0.12);
+  backdrop-filter: blur(12px);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.backToTop:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 34px rgba(15, 124, 140, 0.18);
+}
+
+.backToTop:focus-visible {
+  outline: 3px solid rgba(15, 124, 140, 0.24);
+  outline-offset: 3px;
+}
+
+.backToTopFood {
+  border-color: rgba(224, 88, 52, 0.2);
+  color: var(--theme-food-primary);
+  box-shadow: 0 12px 26px rgba(224, 88, 52, 0.12);
+}
+
+.backToTopFood:hover {
+  box-shadow: 0 18px 34px rgba(224, 88, 52, 0.18);
+}
+
+@media (max-width: 560px) {
+  .backToTop {
+    padding: 9px 14px;
+    font-size: 0.78rem;
+  }
+}

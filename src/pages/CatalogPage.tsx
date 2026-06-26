@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CatalogDevelopmentState from '../components/catalog/CatalogDevelopmentState'
+import CatalogFinalCTA from '../components/catalog/CatalogFinalCTA'
 import CatalogFooter from '../components/catalog/CatalogFooter'
 import CatalogHeader from '../components/catalog/CatalogHeader'
 import CatalogHero from '../components/catalog/CatalogHero'
@@ -19,6 +20,19 @@ function CatalogPage() {
   const sectionGroups = getCatalogSections(slug)
   const theme = segment ? getThemeById(segment.themeId) : homeTheme
   const available = isCatalogAvailable(slug)
+  const [budgetCount, setBudgetCount] = useState(0)
+
+  function handleAddToBudget() {
+    setBudgetCount((count) => count + 1)
+  }
+
+  function handleRemoveFromBudget() {
+    setBudgetCount((count) => Math.max(0, count - 1))
+  }
+
+  function handleFinishBudget() {
+    console.info('Fluxo de orçamento será implementado em sprint futura')
+  }
 
   useEffect(() => {
     applyThemeToDocument(theme)
@@ -38,11 +52,16 @@ function CatalogPage() {
 
   return (
     <div className={styles.page}>
-      <CatalogHeader segment={segment} />
+      <CatalogHeader budgetCount={budgetCount} />
       <main className={styles.main}>
         <CatalogHero catalog={catalog} segment={segment} />
-        <CatalogIndex groups={sectionGroups} />
-        <CatalogSectionGroup groups={sectionGroups} />
+        <CatalogIndex catalog={catalog} groups={sectionGroups} />
+        <CatalogSectionGroup
+          groups={sectionGroups}
+          onAddToBudget={handleAddToBudget}
+          onRemoveFromBudget={handleRemoveFromBudget}
+        />
+        <CatalogFinalCTA onFinishBudget={handleFinishBudget} />
         {!available ? <CatalogDevelopmentState segment={segment} /> : null}
       </main>
       <CatalogFooter />

@@ -1,11 +1,16 @@
 .page {
   position: relative;
   isolation: isolate;
-  display: grid;
-  gap: 12px;
+  display: flex;
+  gap: 0;
+  width: min(100%, var(--container-lg));
   max-width: var(--container-lg);
   margin: 0 auto;
-  padding-bottom: 8px;
+  min-height: 100svh;
+  padding-bottom: var(--home-footer-height);
+  flex-direction: column;
+  --santorini-orange: #eb532c;
+  --home-footer-height: 78px;
   transition:
     background 700ms ease,
     color 700ms ease,
@@ -15,45 +20,50 @@
 .page::before {
   content: '';
   position: fixed;
-  inset: -8vh -10vw -8vh;
+  inset: -12vh -14vw -12vh;
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(circle at 12% 10%, color-mix(in srgb, var(--theme-active-accent) 28%, transparent), transparent 22%),
-    radial-gradient(circle at 88% 14%, color-mix(in srgb, var(--theme-active-primary) 22%, transparent), transparent 26%),
-    radial-gradient(circle at 50% 52%, color-mix(in srgb, var(--theme-active-glow) 48%, transparent), transparent 36%),
-    radial-gradient(circle at 16% 72%, color-mix(in srgb, var(--theme-active-primary) 12%, transparent), transparent 30%),
-    radial-gradient(circle at 84% 76%, color-mix(in srgb, var(--theme-active-accent) 12%, transparent), transparent 30%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 244, 237, 0.94));
+    radial-gradient(circle at 10% 12%, rgba(235, 83, 44, 0.18), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(235, 83, 44, 0.12), transparent 34%),
+    radial-gradient(circle at 50% 90%, rgba(235, 83, 44, 0.2), transparent 42%),
+    linear-gradient(180deg, #ffffff 0%, #fff7f3 48%, #ffffff 100%);
   opacity: 1;
+  filter: saturate(1.02);
   transition:
     opacity 700ms ease,
     background 700ms ease,
-    transform 700ms ease;
+    transform 700ms ease,
+    filter 700ms ease;
 }
 
 .page.themeActive::before {
   inset: -12vh -14vw -12vh;
   background:
-    radial-gradient(circle at 8% 8%, color-mix(in srgb, var(--theme-active-accent) 40%, transparent), transparent 20%),
-    radial-gradient(circle at 92% 12%, color-mix(in srgb, var(--theme-active-primary) 34%, transparent), transparent 24%),
-    radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--theme-active-glow) 64%, transparent), transparent 34%),
-    radial-gradient(circle at 14% 70%, color-mix(in srgb, var(--theme-active-primary) 18%, transparent), transparent 28%),
-    radial-gradient(circle at 88% 74%, color-mix(in srgb, var(--theme-active-accent) 18%, transparent), transparent 30%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(248, 244, 237, 0.92));
+    radial-gradient(circle at 10% 12%, rgba(235, 83, 44, 0.2), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(235, 83, 44, 0.14), transparent 34%),
+    radial-gradient(circle at 50% 90%, rgba(235, 83, 44, 0.22), transparent 42%),
+    linear-gradient(180deg, #ffffff 0%, #fff7f3 48%, #ffffff 100%);
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding-bottom: 0;
+  }
 }
 
 .main {
   position: relative;
   z-index: 2;
   display: grid;
+  flex: 1 0 auto;
   gap: 0;
 }
 
 .introSection {
   display: grid;
   gap: 10px;
-  min-height: calc(100vh - 92px);
+  min-height: auto;
   align-content: start;
-  padding-bottom: clamp(28px, 4vh, 40px);
+  padding-bottom: 0;
 }

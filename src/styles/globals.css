@@ -45,3 +45,10 @@ textarea,
 select {
   font: inherit;
 }
+
+@media (max-width: 640px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
