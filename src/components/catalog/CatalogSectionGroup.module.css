@@ -1,33 +1,30 @@
 .wrapper {
   display: grid;
-  gap: 18px;
+  gap: clamp(24px, 5vw, 48px);
 }
 
 .group {
+  scroll-margin-top: 116px;
   display: grid;
-  gap: 18px;
-  padding: clamp(24px, 4vw, 36px);
-  border: 1px solid var(--theme-active-border);
-  border-radius: var(--radius-2xl);
-  background:
-    radial-gradient(circle at 92% 16%, color-mix(in srgb, var(--theme-active-glow) 58%, transparent), transparent 30%),
-    color-mix(in srgb, var(--theme-active-surface) 86%, transparent);
+  gap: clamp(20px, 4vw, 36px);
 }
 
 .groupHeader {
   display: grid;
+  justify-items: center;
   gap: 8px;
+  text-align: center;
 }
 
-.eyebrow,
-.groupHeader h2,
 .groupHeader p,
-.sectionCard h3,
-.sectionCard p {
+.groupHeader h2,
+.groupHeader span,
+.emptyCard h3,
+.emptyCard p {
   margin: 0;
 }
 
-.eyebrow {
+.groupHeader p {
   color: var(--theme-active-accent);
   font-size: 0.74rem;
   font-weight: var(--font-weight-bold);
@@ -35,47 +32,37 @@
   text-transform: uppercase;
 }
 
-.groupHeader h2 {
-  color: var(--theme-active-text);
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
+.foodService .groupHeader p {
+  color: #d85f37;
 }
 
-.groupHeader p,
-.sectionCard p,
-.sectionCard small {
+.groupHeader h2 {
+  color: var(--theme-active-text);
+  font-size: clamp(1.85rem, 4vw, 3.25rem);
+  line-height: 1.02;
+}
+
+.groupHeader span,
+.emptyCard p {
+  max-width: 780px;
   color: var(--theme-active-muted);
   line-height: 1.65;
 }
 
 .sections {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: clamp(22px, 4vw, 38px);
 }
 
-.sectionCard {
+.emptyCard {
   display: grid;
-  gap: 10px;
-  min-height: 190px;
-  padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--theme-active-primary) 14%, var(--theme-active-border));
+  gap: 8px;
+  padding: 22px;
+  border: 1px solid var(--theme-active-border);
   border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.66);
+  background: rgba(255, 255, 255, 0.7);
 }
 
-.sectionCard span {
-  width: 42px;
-  height: 4px;
-  border-radius: var(--radius-pill);
-  background: var(--theme-active-accent);
-}
-
-.sectionCard h3 {
+.emptyCard h3 {
   color: var(--theme-active-text);
-}
-
-@media (max-width: 900px) {
-  .sections {
-    grid-template-columns: 1fr;
-  }
 }

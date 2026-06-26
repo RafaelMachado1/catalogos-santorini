@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { useNavigate } from 'react-router-dom'
 import HomeConsultantCTA from '../components/home/HomeConsultantCTA'
-import HomeHeader from '../components/home/HomeHeader'
 import CatalogTransitionOverlay from '../components/home/CatalogTransitionOverlay'
+import HomeFooter from '../components/home/HomeFooter'
 import HomeHero from '../components/home/HomeHero'
 import SegmentCarousel from '../components/home/SegmentCarousel'
 import ThemeParticles from '../components/home/ThemeParticles'
@@ -104,7 +104,6 @@ function HomePage() {
       }
     >
       <ThemeParticles theme={activeTheme} isActive={isThemeActive} />
-      <HomeHeader theme={activeTheme} isActive={isThemeActive} />
       <main className={styles.main}>
         <section className={styles.introSection}>
           <HomeHero theme={activeTheme} isActive={isThemeActive} />
@@ -126,6 +125,7 @@ function HomePage() {
         isActive={isTransitioning}
         durationMs={TRANSITION_DURATION_MS}
       />
+      <HomeFooter theme={activeTheme} isActive={isThemeActive} />
     </div>
   )
 }

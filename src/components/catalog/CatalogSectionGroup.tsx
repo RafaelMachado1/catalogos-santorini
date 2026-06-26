@@ -1,8 +1,12 @@
 import type { CatalogSectionGroup as CatalogSectionGroupType } from '../../types/catalog'
+import CatalogDifferentials from './CatalogDifferentials'
+import CatalogVisualSection from './CatalogVisualSection'
 import styles from './CatalogSectionGroup.module.css'
 
 type CatalogSectionGroupProps = {
   groups: CatalogSectionGroupType[]
+  onAddToBudget?: () => void
+  onRemoveFromBudget?: () => void
 }
 
 const placeholderGroups: CatalogSectionGroupType[] = [
@@ -21,40 +25,71 @@ const placeholderGroups: CatalogSectionGroupType[] = [
   },
 ]
 
-function CatalogSectionGroup({ groups }: CatalogSectionGroupProps) {
+function CatalogSectionGroup({ groups, onAddToBudget, onRemoveFromBudget }: CatalogSectionGroupProps) {
   const visibleGroups = groups.length > 0 ? groups : placeholderGroups
+
+  function getNextSectionId(groupIndex: number, sectionIndex: number) {
+    const currentGroup = visibleGroups[groupIndex]
+    const nextSectionInGroup = currentGroup?.sections[sectionIndex + 1]
+
+    if (nextSectionInGroup) {
+      return nextSectionInGroup.id
+    }
+
+    const nextGroup = visibleGroups.slice(groupIndex + 1).find((group) => group.variant !== 'differentials')
+    if (!nextGroup) {
+      const fallbackGroup = visibleGroups.slice(groupIndex + 1).find((group) => group.variant === 'differentials')
+      return fallbackGroup?.id
+    }
+
+    return nextGroup.sections[0]?.id
+  }
 
   return (
     <section className={styles.wrapper} aria-label="Seções do catálogo">
-      {visibleGroups.map((group) => (
-        <article key={group.id} className={styles.group}>
-          <div className={styles.groupHeader}>
-            <p className={styles.eyebrow}>Grupo</p>
-            <h2>{group.title}</h2>
-            {group.description ? <p>{group.description}</p> : null}
-          </div>
+      {visibleGroups.map((group) => {
+        if (group.variant === 'differentials') {
+          return <CatalogDifferentials key={group.id} group={group} />
+        }
 
-          <div className={styles.sections}>
-            {group.sections.length > 0 ? (
-              group.sections.map((section) => (
-                <div key={section.id} className={styles.sectionCard}>
-                  <span />
-                  <h3>{section.title}</h3>
-                  {section.description ? <p>{section.description}</p> : null}
-                  <small>{section.items.length} itens configurados</small>
+        const tone = group.variant === 'food-service' ? 'food-service' : 'hospitalar'
+        const groupIndex = visibleGroups.findIndex((item) => item.id === group.id)
+
+        return (
+          <article
+            key={group.id}
+            id={group.id}
+            className={`${styles.group} ${tone === 'food-service' ? styles.foodService : ''}`}
+          >
+            <div className={styles.groupHeader}>
+              <p>{group.eyebrow ?? 'Grupo'}</p>
+              <h2>{group.title}</h2>
+              {group.description ? <span>{group.description}</span> : null}
+            </div>
+
+            <div className={styles.sections}>
+              {group.sections.length > 0 ? (
+                group.sections.map((section, sectionIndex) => (
+                  <CatalogVisualSection
+                    key={section.id}
+                    section={section}
+                    sectionIndex={sectionIndex}
+                    nextSectionId={getNextSectionId(groupIndex, sectionIndex)}
+                    tone={tone}
+                    onAddToBudget={onAddToBudget}
+                    onRemoveFromBudget={onRemoveFromBudget}
+                  />
+                ))
+              ) : (
+                <div className={styles.emptyCard}>
+                  <h3>Conteúdo em preparação</h3>
+                  <p>Este grupo está pronto para receber seções reais do catálogo.</p>
                 </div>
-              ))
-            ) : (
-              <div className={styles.sectionCard}>
-                <span />
-                <h3>Conteúdo em preparação</h3>
-                <p>Este grupo está pronto para receber seções reais do catálogo.</p>
-                <small>0 itens configurados</small>
-              </div>
-            )}
-          </div>
-        </article>
-      ))}
+              )}
+            </div>
+          </article>
+        )
+      })}
     </section>
   )
 }

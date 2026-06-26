@@ -153,7 +153,7 @@ function SegmentCarousel({
   return (
     <section id="segmentos" className={styles.section}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Segmentos</h2>
+        <h2 className={styles.title}>Catálogos</h2>
       </div>
 
       <div

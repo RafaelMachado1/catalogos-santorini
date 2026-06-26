@@ -1,4 +1,5 @@
-import { Camera, Globe, Share2 } from 'lucide-react'
+import { Camera, Globe, Menu, Share2, X } from 'lucide-react'
+import { useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { ThemeDefinition } from '../../types/theme'
 import styles from './HomeHeader.module.css'
@@ -9,6 +10,7 @@ type HomeHeaderProps = {
 }
 
 function HomeHeader({ theme, isActive }: HomeHeaderProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const style = {
     '--header-primary': theme.primary,
     '--header-accent': theme.accent,
@@ -23,7 +25,19 @@ function HomeHeader({ theme, isActive }: HomeHeaderProps) {
   return (
     <header className={styles.header} style={style} data-active={isActive ? 'true' : 'false'}>
       <div className={styles.inner}>
-        <div className={styles.actions}>
+        <div className={styles.brandSlot} aria-label="Santorini">
+          <span>Santorini</span>
+        </div>
+        <button
+          className={styles.menuToggle}
+          type="button"
+          aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((current) => !current)}
+        >
+          {isMenuOpen ? <X size={21} /> : <Menu size={21} />}
+        </button>
+        <nav className={`${styles.actions} ${isMenuOpen ? styles.actionsOpen : ""}`} aria-label="Links da Home">
           <button className={styles.actionButton} type="button">
             <Share2 size={16} />
             Compartilhar
@@ -36,7 +50,7 @@ function HomeHeader({ theme, isActive }: HomeHeaderProps) {
             <Globe size={16} />
             Site
           </button>
-        </div>
+        </nav>
       </div>
     </header>
   )

@@ -29,7 +29,6 @@ function HomeHero({ theme, isActive }: HomeHeroProps) {
       </div>
 
       <div className={styles.content}>
-        <p className={styles.eyebrow}>Catálogos</p>
         <h1 className={styles.title}>Soluções Profissionais por Segmento</h1>
       </div>
     </section>

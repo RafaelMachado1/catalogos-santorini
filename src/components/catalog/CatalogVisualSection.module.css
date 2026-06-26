@@ -1,0 +1,485 @@
+.section {
+  scroll-margin-top: 118px;
+  display: grid;
+  gap: clamp(18px, 2.8vw, 28px);
+  padding: clamp(24px, 3.8vw, 40px) clamp(20px, 3.6vw, 40px) clamp(32px, 4.2vw, 48px);
+  border: 1px solid rgba(15, 124, 140, 0.13);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(87, 203, 220, 0.18), transparent 28%),
+    linear-gradient(180deg, rgba(245, 253, 255, 0.94), rgba(232, 248, 251, 0.78));
+  box-shadow: 0 24px 70px rgba(15, 124, 140, 0.09);
+}
+
+.foodService {
+  border-color: rgba(217, 95, 57, 0.16);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 166, 121, 0.18), transparent 28%),
+    linear-gradient(180deg, rgba(255, 248, 245, 0.96), rgba(255, 236, 228, 0.76));
+  box-shadow: 0 24px 70px rgba(194, 78, 44, 0.08);
+}
+
+.splitSection {
+  gap: clamp(20px, 3.2vw, 30px);
+}
+
+.specialLayout {
+  display: grid;
+  width: min(100%, 1120px);
+  margin-inline: auto;
+  grid-template-columns: minmax(390px, 0.95fr) minmax(430px, 1fr);
+  align-items: stretch;
+  gap: clamp(34px, 5vw, 72px);
+}
+
+.specialLayout[data-image-side='left'] .specialMedia {
+  order: 1;
+}
+
+.specialLayout[data-image-side='left'] .specialContent {
+  order: 2;
+}
+
+.specialLayout[data-image-side='right'] .specialMedia {
+  order: 2;
+}
+
+.specialLayout[data-image-side='right'] .specialContent {
+  order: 1;
+}
+
+.specialContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.specialHeading {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  max-width: 440px;
+  text-align: left;
+}
+
+.specialProductsGrid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(230px, 280px));
+  gap: clamp(18px, 2vw, 26px);
+  justify-content: center;
+  justify-items: stretch;
+  align-items: stretch;
+  margin-top: clamp(28px, 4vw, 46px);
+}
+
+.singleProductGrid {
+  grid-template-columns: minmax(230px, 280px);
+  justify-content: center;
+}
+
+.specialMedia {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  align-self: stretch;
+}
+
+.specialMedia img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 28px;
+  box-shadow:
+    0 24px 58px rgba(18, 67, 75, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.26);
+}
+
+.sectionImage {
+  display: block;
+}
+
+.sectionLogo {
+  display: block;
+  width: clamp(96px, 8vw, 140px);
+  height: auto;
+  max-height: 38px;
+  object-fit: contain;
+  margin-bottom: clamp(10px, 1.2vw, 14px);
+  filter: drop-shadow(0 10px 18px rgba(15, 124, 140, 0.12));
+}
+
+.visualHeader {
+  display: grid;
+  width: min(100%, 1040px);
+  margin-inline: auto;
+  grid-template-columns: minmax(280px, 360px) minmax(340px, 500px);
+  gap: clamp(22px, 3.2vw, 38px);
+  align-items: start;
+  justify-content: center;
+}
+
+.reverse {
+  grid-template-columns: minmax(340px, 500px) minmax(280px, 360px);
+}
+
+.reverse .heading {
+  order: 2;
+}
+
+.reverse .imageFrame {
+  order: 1;
+}
+
+.heading {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  max-width: 360px;
+  text-align: left;
+}
+
+.heading span,
+.specialHeading span {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(15, 124, 140, 0.1);
+  color: var(--theme-active-primary);
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.foodService .heading span,
+.foodService .specialHeading span {
+  background: rgba(216, 95, 55, 0.1);
+  color: #c45231;
+}
+
+.heading h2,
+.heading p,
+.specialHeading h2,
+.specialHeading p {
+  margin: 0;
+}
+
+.heading h2,
+.specialHeading h2 {
+  max-width: 380px;
+  color: var(--theme-active-text);
+  font-size: clamp(2rem, 3vw, 2.85rem);
+  line-height: 1.03;
+}
+
+.heading p,
+.specialHeading p {
+  max-width: 360px;
+  color: var(--theme-active-muted);
+  font-size: 0.96rem;
+  line-height: 1.58;
+}
+
+.specialHeading h2,
+.specialHeading p {
+  max-width: 440px;
+}
+
+.imageFrame {
+  justify-self: center;
+  overflow: visible;
+  display: inline-block;
+  width: fit-content;
+  max-width: min(100%, 440px);
+  border-radius: 24px;
+  background: transparent;
+  box-shadow: 0 22px 48px rgba(18, 67, 75, 0.16);
+  transform: translateY(-4px);
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.imageFrame:hover {
+  box-shadow: 0 28px 58px rgba(18, 67, 75, 0.2);
+  transform: translateY(-6px);
+}
+
+.foodService .imageFrame {
+  box-shadow: 0 22px 48px rgba(194, 78, 44, 0.14);
+}
+
+.foodService .imageFrame:hover {
+  box-shadow: 0 28px 58px rgba(194, 78, 44, 0.18);
+}
+
+.imageFrame img {
+  display: block;
+  width: auto;
+  max-width: min(100%, 440px);
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 24px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 260px));
+  gap: 16px;
+  justify-content: center;
+  align-items: stretch;
+  overflow: visible;
+  padding-top: clamp(16px, 2vw, 24px);
+}
+
+.sectionFooter {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+.section::after {
+  content: '';
+  justify-self: center;
+  width: min(100%, 220px);
+  height: 1px;
+  margin-top: 4px;
+  background: linear-gradient(90deg, transparent, rgba(15, 124, 140, 0.18), transparent);
+}
+
+.foodService::after {
+  background: linear-gradient(90deg, transparent, rgba(216, 95, 55, 0.18), transparent);
+}
+
+.scrollCue {
+  justify-self: center;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-top: 2px;
+  border: 1px solid rgba(15, 124, 140, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--theme-active-primary);
+  text-decoration: none;
+  box-shadow: 0 10px 22px rgba(15, 124, 140, 0.12);
+  backdrop-filter: blur(12px);
+  animation: sectionCueFloat 1.8s ease-in-out infinite;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.scrollCue:hover {
+  border-color: rgba(15, 124, 140, 0.26);
+  box-shadow: 0 14px 28px rgba(15, 124, 140, 0.18);
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.foodServiceCue {
+  border-color: rgba(216, 95, 55, 0.18);
+  color: #d85f37;
+  box-shadow: 0 10px 22px rgba(194, 78, 44, 0.12);
+}
+
+.foodServiceCue:hover {
+  border-color: rgba(216, 95, 55, 0.28);
+  box-shadow: 0 14px 28px rgba(194, 78, 44, 0.18);
+}
+
+@keyframes sectionCueFloat {
+  0%,
+  100% {
+    opacity: 0.76;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .products,
+  .specialProductsGrid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    justify-content: center;
+  }
+
+  .singleProductGrid {
+    grid-template-columns: minmax(230px, 280px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .visualHeader,
+  .reverse,
+  .specialLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .reverse .heading,
+  .reverse .imageFrame,
+  .specialMedia,
+  .specialContent {
+    order: initial;
+  }
+
+  .heading,
+  .specialHeading {
+    max-width: 680px;
+  }
+
+  .heading h2,
+  .heading p,
+  .specialHeading h2,
+  .specialHeading p {
+    max-width: 680px;
+  }
+
+  .imageFrame {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .imageFrame img {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .specialContent {
+    height: auto;
+  }
+
+  .specialMedia {
+    min-height: 0;
+  }
+
+  .specialMedia img {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+  }
+
+  .specialProductsGrid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    border-radius: 22px;
+    padding: 22px 16px 30px;
+  }
+
+  .products,
+  .specialProductsGrid,
+  .singleProductGrid {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .products > *,
+  .specialProductsGrid > * {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .scrollCue {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollCue {
+    animation: none;
+    transition: none;
+  }
+
+  .scrollCue:hover {
+    transform: none;
+  }
+}
+
+
+.specialMobileMedia {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .specialLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .specialContent {
+    order: 1;
+  }
+
+  .specialMedia {
+    display: none;
+  }
+
+  .specialMobileMedia {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    margin: clamp(18px, 4vw, 28px) auto 0;
+  }
+
+  .specialMobileMedia img,
+  .imageFrame img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+
+  .visualHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .heading,
+  .specialHeading {
+    max-width: 100%;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .sectionLogo {
+    margin-inline: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .sectionLogo {
+    width: clamp(92px, 36vw, 132px);
+    max-height: 34px;
+    margin-bottom: 10px;
+  }
+
+  .specialMobileMedia,
+  .imageFrame {
+    max-width: 100%;
+  }
+
+  .specialMobileMedia img,
+  .imageFrame img {
+    border-radius: 22px;
+  }
+}
+

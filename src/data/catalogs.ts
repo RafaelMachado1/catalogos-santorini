@@ -1,3 +1,4 @@
+import { hospitalarCatalogData } from './catalogs/hospitalar'
 import { segments } from './segments'
 import type { Catalog, CatalogAction, CatalogAvailability, Segment } from '../types/catalog'
 
@@ -36,8 +37,8 @@ function createBaseCatalog(segment: Segment): Catalog {
     title: `Catálogo ${segment.title}`,
     subtitle: segment.subtitle,
     description: segment.description,
-    availability: getAvailability(segment),
-    status: segment.status,
+    availability: segment.slug === 'hospitalar' ? getAvailability(segment) : 'development',
+    status: segment.slug === 'hospitalar' ? segment.status : 'development',
     tags: segment.tags,
     actions: baseCatalogActions,
     sectionGroups: [],
@@ -49,17 +50,9 @@ export const catalogs = segments.reduce<Record<string, Catalog>>((catalogMap, se
   return catalogMap
 }, {})
 
-const hospitalarCatalog = catalogs.hospitalar
-
-if (hospitalarCatalog) {
+if (catalogs.hospitalar) {
   catalogs.hospitalar = {
-    ...hospitalarCatalog,
-    availability: 'development',
-    status: 'development',
-    title: 'Catálogo Hospitalar',
-    subtitle: 'Estrutura inicial para o futuro catálogo hospitalar Santorini.',
-    description:
-      'Motor dinâmico preparado para receber linhas, seções técnicas, materiais de apoio e CTAs comerciais na próxima etapa.',
-    sectionGroups: [],
+    ...catalogs.hospitalar,
+    ...hospitalarCatalogData,
   }
 }
